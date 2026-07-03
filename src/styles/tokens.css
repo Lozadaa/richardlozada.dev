@@ -1,0 +1,12 @@
+:root {
+  /* spacing — 8px rhythm */
+  --space-1: 8px;  --space-2: 16px; --space-3: 24px; --space-4: 32px;
+  --space-6: 48px; --space-8: 64px; --space-12: 96px;
+  /* color */
+  --bg: #000; --fg: #e6e6e6; --fg-dim: #8a8a8a; --accent: #ff7a18;
+  /* typography */
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+  --fs-sm: 0.8rem; --fs-base: 1rem; --fs-lg: 1.25rem;
+  --fs-xl: 1.563rem; --fs-2xl: 1.953rem; --fs-3xl: clamp(2.4rem, 6vw, 3.815rem);
+  --measure: 66ch;
+}
