@@ -3,7 +3,7 @@
     "description": { "en": "Humanitarian PWA for Venezuela: report yourself safe, find relatives, contribute information and locate aid.", "es": "PWA humanitaria para Venezuela: repórtate a salvo, encuentra a tus familiares, aporta información y ubica puntos de ayuda." },
     "stack": ["Next.js", "Supabase", "Leaflet", "TypeScript"],
     "links": [
-      { "label": "web →", "href": "https://vzla-info-r1lozadas-projects.vercel.app" },
+      { "label": "web →", "href": "https://vzla.info" },
       { "label": "repo →", "href": "https://github.com/Lozadaa/vzla-info" }
     ], "featured": true },
   { "name": "FlareRead",
