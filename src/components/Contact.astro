@@ -11,7 +11,13 @@ const year = new Date().getFullYear();
   <p class="contact__sig">— built in ASCII · {year}</p>
 </footer>
 <style>
-  .contact { padding-block: var(--space-8); }
-  .contact__links { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-3); }
+  .contact { padding-block: var(--space-8); text-align: center; }
+  .contact__links {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: var(--space-3);
+  }
   .contact__sig { color: var(--fg-dim); margin-top: var(--space-4); }
 </style>

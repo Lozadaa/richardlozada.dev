@@ -7,5 +7,15 @@ import { aboutParagraphs } from "../content/about";
 </section>
 <style>
   .about { padding-block: var(--space-8); }
-  .about__body { max-width: var(--measure); margin-top: var(--space-3); display: grid; gap: var(--space-2); }
+  .about__body {
+    margin-top: var(--space-3);
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1fr;
+  }
+  .about__body p { max-width: var(--measure); }
+  @media (min-width: 900px) {
+    .about__body { grid-template-columns: repeat(3, 1fr); }
+    .about__body p { max-width: none; }
+  }
 </style>

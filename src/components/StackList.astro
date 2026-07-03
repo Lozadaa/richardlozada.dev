@@ -4,13 +4,23 @@ import stack from "../content/stack.json";
 <section class="container stack" aria-labelledby="stack-h">
   <h2 id="stack-h">Stack</h2>
   <dl class="stack__grid">
-    {stack.map((g) => (<><dt>{g.category}</dt><dd>{g.items.join("  ·  ")}</dd></>))}
+    {stack.map((g) => (
+      <div class="stack__cat">
+        <dt>{g.category}</dt>
+        <dd>{g.items.join("  ·  ")}</dd>
+      </div>
+    ))}
   </dl>
 </section>
 <style>
   .stack { padding-block: var(--space-8); }
-  .stack__grid { display: grid; gap: var(--space-2) var(--space-4); margin-top: var(--space-3); }
-  @media (min-width: 600px) { .stack__grid { grid-template-columns: max-content 1fr; } }
-  dt { color: var(--accent); }
+  .stack__grid {
+    margin-top: var(--space-3);
+    display: grid;
+    gap: var(--space-3);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .stack__cat { border: 1px solid var(--fg-dim); padding: var(--space-3); }
+  dt { color: var(--accent); margin-bottom: var(--space-1); }
   dd { color: var(--fg-dim); }
 </style>
