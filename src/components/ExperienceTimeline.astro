@@ -2,6 +2,7 @@
 import experience from "../content/experience.json";
 import logosRaw from "../content/logos.json";
 const logos = logosRaw as Record<string, string[]>;
+const cols = (key: string) => Math.max(...logos[key].map((l) => l.length));
 ---
 <section class="container exp" aria-labelledby="exp-h">
   <div class="exp__head">
@@ -12,52 +13,128 @@ const logos = logosRaw as Record<string, string[]>;
       <span class="exp__tip" role="tooltip">Each mark is either the company&rsquo;s real logo rendered in ASCII, or &mdash; where no logo was available &mdash; a unique &ldquo;sigil&rdquo; generated deterministically from the company&rsquo;s name. Same name, same emblem, every time.</span>
     </span>
   </div>
-  <p class="exp__hint">Select a company to expand roles &amp; details.</p>
-  <div class="exp__grid">
-    {experience.map((e) => (
-      <details class="exp__tile">
-        <summary>
-          <pre class="exp__mark" aria-hidden="true">{logos[e.logo].join("\n")}</pre>
-          <span class="exp__co">{e.company}</span>
-          <span class="exp__period">{e.period} &middot; {e.location}</span>
-        </summary>
-        <ol class="exp__roles">
-          {e.roles.map((r) => (
-            <li>
-              <strong>{r.title}</strong><span class="exp__rp"> &middot; {r.period}</span>
-              <p>{r.summary}</p>
-              <p class="exp__tags">{r.tags.join("  ·  ")}</p>
-            </li>
-          ))}
-        </ol>
-      </details>
+  <ol class="exp__log">
+    {experience.map((e, i) => (
+      <li class="exp__entry" data-reveal>
+        <details class="exp__item">
+          <summary>
+            <span class="exp__node" aria-hidden="true">{i === 0 ? "●" : "○"}</span>
+            <span class="exp__markbox" style={`--cols:${cols(e.logo)}`} aria-hidden="true">
+              <pre class="exp__mark">{logos[e.logo].join("\n")}</pre>
+            </span>
+            <span class="exp__meta">
+              <span class="exp__co">{e.company}</span>
+              <span class="exp__period">{e.period} · {e.location}</span>
+              <span class="exp__lead">{e.roles[0].title}</span>
+              <span class="exp__toggle"><span class="exp__sign" aria-hidden="true"></span>{e.roles.length} {e.roles.length === 1 ? "role" : "roles"}</span>
+            </span>
+          </summary>
+          <ol class="exp__roles">
+            {e.roles.map((r, j) => (
+              <li>
+                <span class="exp__branch" aria-hidden="true">{j === e.roles.length - 1 ? "└─" : "├─"}</span>
+                <div class="exp__role">
+                  <strong>{r.title}</strong><span class="exp__rp"> · {r.period}</span>
+                  <p>{r.summary}</p>
+                  <p class="exp__tags">{r.tags.map((t) => <span class="exp__tag">{t}</span>)}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </details>
+      </li>
     ))}
-  </div>
+  </ol>
 </section>
 <style>
   .exp { padding-block: var(--space-8); }
-  .exp__head { display: flex; align-items: center; gap: var(--space-2); }
+  .exp__head { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); }
+  .exp__head h2 { flex: 1; }
   .exp__info { position: relative; cursor: help; color: var(--accent); display: inline-flex; }
   .exp__info:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .exp__tip {
-    position: absolute; top: 130%; left: 0; width: min(320px, 80vw); z-index: 5;
+    position: absolute; top: 130%; right: 0; width: min(320px, 80vw); z-index: 5;
     background: #000; border: 1px solid var(--fg-dim); color: var(--fg);
     padding: var(--space-2); font-size: var(--fs-sm); line-height: 1.5;
     opacity: 0; visibility: hidden; transition: opacity .12s;
   }
   .exp__info:hover .exp__tip, .exp__info:focus .exp__tip, .exp__info:focus-within .exp__tip { opacity: 1; visibility: visible; }
-  .exp__hint { color: var(--fg-dim); margin-block: var(--space-2) var(--space-3); }
-  .exp__grid { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
-  .exp__tile { border: 1px solid var(--fg-dim); padding: var(--space-3); }
-  .exp__tile[open] { border-color: var(--accent); }
-  .exp__tile summary { cursor: pointer; list-style: none; display: grid; justify-items: center; gap: 4px; text-align: center; }
-  .exp__tile summary::-webkit-details-marker { display: none; }
-  .exp__tile summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .exp__mark { font-size: 10px; line-height: 1.05; color: var(--fg-dim); white-space: pre; overflow-x: auto; max-width: 100%; margin-bottom: var(--space-1); }
-  .exp__tile[open] .exp__mark { color: var(--accent); }
+
+  /* the spine: career as a commit log */
+  .exp__log { list-style: none; margin: 0; padding: 0; position: relative; }
+  .exp__log::before {
+    content: ""; position: absolute; top: 6px; bottom: 6px; left: 7px;
+    border-left: 1px dashed var(--fg-dim); opacity: .5;
+  }
+  .exp__entry { position: relative; padding-left: var(--space-4); }
+  .exp__entry + .exp__entry { margin-top: var(--space-3); }
+  .exp__node {
+    position: absolute; left: 0; top: 14px; width: 15px; text-align: center;
+    color: var(--fg-dim); background: var(--bg); line-height: 1;
+    transition: color .25s, text-shadow .25s;
+  }
+  .exp__entry:first-child .exp__node { color: var(--accent); }
+
+  .exp__item { border: 1px solid transparent; border-left-color: transparent; }
+  .exp__item summary {
+    cursor: pointer; list-style: none;
+    display: grid; grid-template-columns: minmax(120px, 190px) 1fr; gap: var(--space-3);
+    align-items: center; padding: var(--space-2);
+    border: 1px solid color-mix(in srgb, var(--fg-dim) 35%, transparent);
+    transition: border-color .25s, background .25s;
+  }
+  .exp__item summary::-webkit-details-marker { display: none; }
+  .exp__item summary:hover, .exp__item[open] summary {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 4%, transparent);
+  }
+  .exp__item summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* marks scale to their box — they never scroll */
+  .exp__markbox { display: block; container-type: inline-size; min-width: 0; }
+  .exp__mark {
+    margin: 0; white-space: pre; overflow: hidden; text-align: center;
+    font-size: min(10px, calc(100cqw / (var(--cols) * 0.6001)));
+    line-height: 1.1; color: var(--fg-dim);
+    transition: color .3s, text-shadow .3s;
+  }
+  .exp__entry:hover .exp__mark, .exp__item[open] .exp__mark {
+    color: var(--accent);
+    text-shadow: 0 0 14px color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  .exp__entry:hover .exp__node, .exp__item[open] .exp__node {
+    color: var(--accent);
+    text-shadow: 0 0 10px color-mix(in srgb, var(--accent) 60%, transparent);
+  }
+
+  .exp__meta { display: grid; gap: 2px; min-width: 0; }
   .exp__co { font-size: var(--fs-lg); }
   .exp__period { color: var(--fg-dim); font-size: var(--fs-sm); }
-  .exp__roles { list-style: none; display: grid; gap: var(--space-2); margin-top: var(--space-3); text-align: left; }
-  .exp__roles p { margin-top: 4px; }
-  .exp__rp, .exp__tags { color: var(--fg-dim); }
+  .exp__lead { color: var(--fg-dim); }
+  .exp__toggle { color: var(--accent); font-size: var(--fs-sm); margin-top: 4px; }
+  .exp__sign::before { content: "[+] "; }
+  .exp__item[open] .exp__sign::before { content: "[−] "; }
+
+  .exp__roles {
+    list-style: none; margin: 0; padding: var(--space-3) var(--space-2);
+    display: grid; gap: var(--space-3);
+    border: 1px solid color-mix(in srgb, var(--fg-dim) 35%, transparent); border-top: 0;
+  }
+  .exp__roles > li { display: grid; grid-template-columns: auto 1fr; gap: var(--space-2); }
+  .exp__branch { color: var(--fg-dim); user-select: none; }
+  .exp__role p { margin-top: 4px; max-width: 72ch; }
+  .exp__rp { color: var(--fg-dim); }
+  .exp__tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .exp__tag { color: var(--fg-dim); font-size: var(--fs-sm); }
+  .exp__tag::before { content: "["; }
+  .exp__tag::after { content: "]"; }
+
+  @media (max-width: 560px) {
+    .exp__item summary { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+    .exp__markbox { width: min(60vw, 220px); }
+    .exp__meta { justify-items: center; }
+    .exp__log::before { display: none; }
+    .exp__node { display: none; }
+    .exp__entry { padding-left: 0; }
+  }
 </style>

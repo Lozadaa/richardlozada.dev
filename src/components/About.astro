@@ -3,7 +3,7 @@ import { aboutParagraphs } from "../content/about";
 ---
 <section class="container about" aria-labelledby="about-h">
   <h2 id="about-h">About</h2>
-  <div class="about__body">{aboutParagraphs.map((p) => <p>{p}</p>)}</div>
+  <div class="about__body" data-reveal>{aboutParagraphs.map((p) => <p>{p}</p>)}</div>
 </section>
 <style>
   .about { padding-block: var(--space-8); }

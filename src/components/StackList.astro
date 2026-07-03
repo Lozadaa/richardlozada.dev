@@ -1,26 +1,43 @@
 ---
 import stack from "../content/stack.json";
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 ---
 <section class="container stack" aria-labelledby="stack-h">
   <h2 id="stack-h">Stack</h2>
-  <dl class="stack__grid">
-    {stack.map((g) => (
-      <div class="stack__cat">
-        <dt>{g.category}</dt>
-        <dd>{g.items.join("  ·  ")}</dd>
-      </div>
-    ))}
-  </dl>
+  <div class="stack__term" data-reveal>
+    <p class="stack__cmd" aria-hidden="true"><span class="stack__prompt">$</span> tree ~/stack <span class="caret"></span></p>
+    <dl class="stack__tree">
+      {stack.map((g, i) => (
+        <div class="stack__row">
+          <dt><span class="stack__branch" aria-hidden="true">{i === stack.length - 1 ? "└──" : "├──"}</span> {slug(g.category)}/</dt>
+          <dd>{g.items.map((it) => <span class="stack__item">{it}</span>)}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
 </section>
 <style>
   .stack { padding-block: var(--space-8); }
-  .stack__grid {
+  .stack__term {
     margin-top: var(--space-3);
-    display: grid;
-    gap: var(--space-3);
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    border: 1px solid color-mix(in srgb, var(--fg-dim) 35%, transparent);
+    padding: var(--space-3);
   }
-  .stack__cat { border: 1px solid var(--fg-dim); padding: var(--space-3); }
-  dt { color: var(--accent); margin-bottom: var(--space-1); }
-  dd { color: var(--fg-dim); }
+  .stack__cmd { color: var(--fg); margin-bottom: var(--space-2); }
+  .stack__prompt { color: var(--accent); }
+  .stack__tree { display: grid; gap: var(--space-1); margin: 0; }
+  .stack__row {
+    display: grid; grid-template-columns: minmax(160px, max-content) 1fr;
+    gap: var(--space-3); align-items: baseline;
+  }
+  .stack__branch { color: var(--fg-dim); user-select: none; }
+  dt { color: var(--accent); white-space: nowrap; }
+  dd { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 12px; }
+  .stack__item { color: var(--fg-dim); transition: color .2s; }
+  .stack__item:hover { color: var(--fg); }
+  .stack__item + .stack__item::before { content: "· "; color: var(--fg-dim); margin-right: 4px; }
+  @media (max-width: 560px) {
+    .stack__row { grid-template-columns: 1fr; gap: 2px; }
+    dd { padding-left: var(--space-4); }
+  }
 </style>
