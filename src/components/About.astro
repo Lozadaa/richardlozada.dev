@@ -10,12 +10,7 @@ import { aboutParagraphs } from "../content/about";
   .about__body {
     margin-top: var(--space-3);
     display: grid;
-    gap: var(--space-4);
-    grid-template-columns: 1fr;
+    gap: var(--space-3);
   }
-  .about__body p { max-width: var(--measure); }
-  @media (min-width: 900px) {
-    .about__body { grid-template-columns: repeat(3, 1fr); }
-    .about__body p { max-width: none; }
-  }
+  .about__body p { max-width: none; font-size: var(--fs-lg); }
 </style>
