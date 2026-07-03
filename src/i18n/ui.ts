@@ -37,15 +37,15 @@ export const ui = {
   es: {
     "meta.title": "Richard Lozada — Ingeniero de Software",
     "meta.description":
-      "Ingeniero full-stack con ~10 años de experiencia, de developer a Technical Lead en Openbank (Grupo Santander).",
+      "Ingeniero de software full-stack con ~10 años de experiencia. De developer a Technical Lead en Openbank (Grupo Santander).",
     "skip": "Saltar al contenido",
-    "hero.face-label": "Retrato ASCII de Richard Lozada",
+    "hero.face-label": "Retrato de Richard Lozada en ASCII",
     "hero.links": "Enlaces rápidos",
     "exp.heading": "Experiencia",
     "exp.tooltip":
-      "Cada marca es el logo real de la empresa renderizado en ASCII o — cuando no había logo disponible — las iniciales de la empresa en grande, con la misma textura ASCII.",
+      "Cada marca es el logo real de la empresa dibujado en ASCII. Si no hay logo disponible, son sus iniciales en grande, con la misma textura.",
     "exp.tooltip-label":
-      "Sobre las marcas: cada emblema es el logo real de la empresa en ASCII, o las iniciales de la empresa en grande en ASCII.",
+      "Sobre las marcas: el logo real de la empresa dibujado en ASCII o, si no hay logo, sus iniciales en grande.",
     "exp.role": "rol",
     "exp.roles": "roles",
     "exp.more": "ver más · +{y} años de experiencia",
