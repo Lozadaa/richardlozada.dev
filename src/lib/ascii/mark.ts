@@ -20,8 +20,12 @@ export function mountAsciiMark(pre: HTMLPreElement): LiveMark | null {
   canvas.setAttribute("aria-hidden", "true");
   canvas.width = w * cellW;
   canvas.height = h * cellH;
+  canvas.style.display = "block";
   canvas.style.width = "100%";
+  // cap at the size the static <pre> had (11px font × 0.6 char width)
+  canvas.style.maxWidth = `${Math.round(w * 11 * 0.6)}px`;
   canvas.style.height = "auto";
+  canvas.style.marginInline = "auto";
   pre.replaceWith(canvas);
 
   const rows = lines.map((l) => l.padEnd(w, " "));

@@ -1,5 +1,5 @@
 ---
-import { aboutParagraphs, certifications } from "../content/about";
+import { aboutParagraphs, certifications, press } from "../content/about";
 import { useT, type Locale } from "../i18n/ui";
 const locale = (Astro.currentLocale ?? "en") as Locale;
 const t = useT(locale);
@@ -8,7 +8,17 @@ const t = useT(locale);
   <h2 id="about-h">{t("about.heading")}</h2>
   <div class="about__body" data-reveal>{aboutParagraphs[locale].map((p) => <p>{p}</p>)}</div>
   <div class="about__certs" data-reveal>
-    <h3 class="about__certs-h">{t("about.certs")}</h3>
+    <h3 class="about__certs-h">{t("about.press")}</h3>
+    <ul class="about__cert-list">
+      {press.map((p) => (
+        <li>
+          <a class="about__cert" href={p.href} target="_blank" rel="noopener" title={`Abastece Combustible (2015) — ${p.name}`}>
+            <span class="about__bracket" aria-hidden="true">[ </span>{p.name} <span class="about__issuer">↗</span><span class="about__bracket" aria-hidden="true"> ]</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <h3 class="about__certs-h about__certs-h--second">{t("about.certs")}</h3>
     <ul class="about__cert-list">
       {certifications.map((c) => (
         <li>
@@ -30,6 +40,7 @@ const t = useT(locale);
   .about__body p { max-width: none; font-size: var(--fs-lg); }
   .about__certs { margin-top: var(--space-4); }
   .about__certs-h { font-size: var(--fs-base); color: var(--fg-dim); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; }
+  .about__certs-h--second { margin-top: var(--space-3); }
   .about__cert-list {
     list-style: none; margin: var(--space-2) 0 0; padding: 0;
     display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3);
