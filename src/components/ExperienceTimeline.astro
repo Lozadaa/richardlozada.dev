@@ -61,11 +61,28 @@ const moreLabel = t("exp.more").replace("{y}", String(extraYears));
   </ol>
 </section>
 <script>
+  import { mountAsciiMark } from "../lib/ascii/mark";
+
   const more = document.querySelector<HTMLButtonElement>(".exp__more");
   more?.addEventListener("click", () => {
     document.querySelectorAll(".exp__entry[hidden]").forEach((el) => el.removeAttribute("hidden"));
     more.closest(".exp__moreli")?.remove();
   });
+
+  // living marks: same physics as the hero face (skip under reduced motion)
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll<HTMLElement>(".exp__entry").forEach((entry) => {
+      const pre = entry.querySelector<HTMLPreElement>("pre.exp__mark");
+      const details = entry.querySelector<HTMLDetailsElement>("details");
+      if (!pre || !details) return;
+      const mark = mountAsciiMark(pre);
+      if (!mark) return;
+      const update = () => mark.setAccent(entry.matches(":hover") || details.open);
+      entry.addEventListener("mouseenter", update);
+      entry.addEventListener("mouseleave", update);
+      details.addEventListener("toggle", update);
+    });
+  }
 </script>
 <style>
   .exp { padding-block: var(--space-8); }

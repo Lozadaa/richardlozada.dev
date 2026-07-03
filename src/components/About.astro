@@ -9,12 +9,12 @@ const t = useT(locale);
   <div class="about__body" data-reveal>{aboutParagraphs[locale].map((p) => <p>{p}</p>)}</div>
   <div class="about__certs" data-reveal>
     <h3 class="about__certs-h">{t("about.certs")}</h3>
-    <ul>
-      {certifications.map((c, i) => (
+    <ul class="about__cert-list">
+      {certifications.map((c) => (
         <li>
-          <span class="about__branch" aria-hidden="true">{i === certifications.length - 1 ? "└─" : "├─"}</span>
-          <a href={c.href} target="_blank" rel="noopener">{c.name}</a>
-          <span class="about__issuer"> · {c.issuer}</span>
+          <a class="about__cert" href={c.href} target="_blank" rel="noopener" title={`${c.name} — ${c.issuer}`}>
+            <span class="about__bracket" aria-hidden="true">[ </span>{c.name} <span class="about__issuer">· {c.issuer} ↗</span><span class="about__bracket" aria-hidden="true"> ]</span>
+          </a>
         </li>
       ))}
     </ul>
@@ -30,7 +30,13 @@ const t = useT(locale);
   .about__body p { max-width: none; font-size: var(--fs-lg); }
   .about__certs { margin-top: var(--space-4); }
   .about__certs-h { font-size: var(--fs-base); color: var(--fg-dim); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; }
-  .about__certs ul { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: grid; gap: var(--space-1); }
-  .about__branch { color: var(--fg-dim); user-select: none; margin-right: var(--space-1); }
-  .about__issuer { color: var(--fg-dim); }
+  .about__cert-list {
+    list-style: none; margin: var(--space-2) 0 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3);
+  }
+  .about__cert { color: var(--fg); }
+  .about__cert:hover { color: var(--accent); text-decoration: none; }
+  .about__bracket { color: var(--accent); }
+  .about__issuer { color: var(--fg-dim); font-size: var(--fs-sm); }
+  .about__cert:hover .about__issuer { color: var(--accent); }
 </style>
