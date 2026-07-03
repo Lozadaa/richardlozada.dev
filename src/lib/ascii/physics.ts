@@ -29,8 +29,8 @@ export class PushField {
     this.ph = new Float32Array(n); this.fq = new Float32Array(n); this.am = new Float32Array(n);
     for (let i = 0; i < n; i++) {
       this.ph[i] = Math.random() * Math.PI * 2;
-      this.fq[i] = 0.6 + Math.random();
-      this.am[i] = 0.5 + Math.random() * 1.1;
+      this.fq[i] = 0.7 + Math.random() * 0.6;
+      this.am[i] = 0.6 + Math.random() * 0.7;
     }
   }
 
@@ -65,9 +65,9 @@ export class PushField {
       }
     }
     // random twitches: brief impulses on a small cluster, like tics of life
-    if (Math.random() < 0.04) {
+    if (Math.random() < 0.012) {
       const tx = (Math.random() * this.face.w) | 0, ty = (Math.random() * this.face.h) | 0;
-      const ang = Math.random() * Math.PI * 2, kick = 0.9 + Math.random() * 1.4;
+      const ang = Math.random() * Math.PI * 2, kick = 0.4 + Math.random() * 0.7;
       for (let dy2 = -2; dy2 <= 2; dy2++) {
         for (let dx2 = -2; dx2 <= 2; dx2++) {
           const nx = tx + dx2, ny = ty + dy2;
