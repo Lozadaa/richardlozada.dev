@@ -25,12 +25,5 @@
     "links": [
       { "label": "web →", "href": "https://dexteriapp.com" },
       { "label": "repo →", "href": "https://github.com/Lozadaa/dexteria" }
-    ], "featured": true },
-  { "name": "progressive-img-loader",
-    "description": { "en": "Published open-source library that adds a blurred-thumbnail preloader to images.", "es": "Librería open-source que muestra una miniatura difuminada mientras cargan las imágenes." },
-    "stack": ["JavaScript", "OSS"],
-    "links": [
-      { "label": "npm →", "href": "https://www.npmjs.com/package/progressive-img-loader" },
-      { "label": "repo →", "href": "https://github.com/Lozadaa/progressive-img-loader" }
     ], "featured": true }
 ]
