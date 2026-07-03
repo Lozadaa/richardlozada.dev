@@ -1,0 +1,24 @@
+---
+import TimelineItem from "./TimelineItem.astro";
+import experience from "../content/experience.json";
+---
+<section class="container exp" aria-labelledby="exp-h">
+  <h2 id="exp-h">Experience</h2>
+  <p class="exp__hint">Scroll horizontally, or use Tab / arrow keys.</p>
+  <ol class="exp__track" tabindex="0" aria-label="Work experience timeline">
+    {experience.map((e) => <TimelineItem company={e.company} location={e.location} period={e.period} roles={e.roles} />)}
+  </ol>
+</section>
+<style>
+  .exp { padding-block: var(--space-8); }
+  .exp__hint { color: var(--fg-dim); margin-block: var(--space-2); }
+  .exp__track { list-style: none; display: flex; gap: var(--space-3); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: var(--space-2); }
+  .exp__track:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+</style>
+<script>
+  const track = document.querySelector<HTMLElement>(".exp__track");
+  track?.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") { track.scrollBy({ left: 360, behavior: "smooth" }); e.preventDefault(); }
+    if (e.key === "ArrowLeft") { track.scrollBy({ left: -360, behavior: "smooth" }); e.preventDefault(); }
+  });
+</script>

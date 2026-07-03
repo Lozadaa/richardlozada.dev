@@ -1,0 +1,17 @@
+---
+import AsciiLink from "./ascii/AsciiLink.astro";
+interface Props { name: string; description: string; stack: string[]; links: { label: string; href: string }[] }
+const { name, description, stack, links } = Astro.props;
+---
+<article class="pc">
+  <h3 class="pc__name">{name}</h3>
+  <p>{description}</p>
+  <p class="pc__stack">{stack.join(" · ")}</p>
+  {links.length > 0 && <p class="pc__links">{links.map((l) => <AsciiLink href={l.href} label={l.label} />)}</p>}
+</article>
+<style>
+  .pc { border: 1px solid var(--fg-dim); padding: var(--space-3); display: grid; gap: var(--space-2); }
+  .pc__name { font-size: var(--fs-lg); }
+  .pc__stack { color: var(--fg-dim); }
+  .pc__links { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+</style>

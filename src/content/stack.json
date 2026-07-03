@@ -1,0 +1,6 @@
+[
+  { "category": "Frontend", "items": ["React", "Next.js", "Angular", "TypeScript", "Astro"] },
+  { "category": "Backend", "items": ["Ruby on Rails", "Java / Spring", "Node.js"] },
+  { "category": "Mobile", "items": ["React Native", "Kotlin", "Swift"] },
+  { "category": "Cloud / DevOps", "items": ["AWS", "Docker", "Kubernetes"] }
+]

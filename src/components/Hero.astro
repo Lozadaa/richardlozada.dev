@@ -1,0 +1,22 @@
+---
+import AsciiFace from "./ascii/AsciiFace.astro";
+import AsciiLink from "./ascii/AsciiLink.astro";
+import site from "../content/site.json";
+---
+<header class="hero container">
+  <AsciiFace label={`ASCII portrait of ${site.name}`} />
+  <div class="hero__meta">
+    <h1>{site.name}</h1>
+    <p class="hero__tagline">{site.tagline}</p>
+    <nav class="hero__links" aria-label="Quick links">
+      {site.contacts.map((c) => <AsciiLink href={c.href} label={c.label} />)}
+    </nav>
+  </div>
+</header>
+<style>
+  .hero { display: grid; gap: var(--space-4); padding-block: var(--space-8); align-items: center; }
+  @media (min-width: 800px) { .hero { grid-template-columns: 1fr 1fr; } }
+  .hero__tagline { color: var(--fg-dim); max-width: var(--measure); margin-block: var(--space-2); }
+  .hero__links { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
+  h1 { font-size: var(--fs-3xl); line-height: 1.05; }
+</style>

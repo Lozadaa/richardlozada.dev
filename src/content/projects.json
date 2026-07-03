@@ -1,0 +1,7 @@
+[
+  { "name": "dexteria", "description": "AI Project Executor — an assistant that plans and runs project work, with a companion landing (dexteria-web).", "stack": ["TypeScript", "AI"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/dexteria" }], "featured": true },
+  { "name": "vzla-info", "description": "Humanitarian PWA for Venezuela: report yourself safe, find relatives, contribute information and locate aid.", "stack": ["Next.js", "Supabase", "Leaflet", "TypeScript"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/vzla-info" }], "featured": true },
+  { "name": "FlareRead", "description": "JustRead — a focused, distraction-free reading application.", "stack": ["Electron", "React", "TypeScript"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/FlareRead" }], "featured": true },
+  { "name": "progressive-img-loader", "description": "Published open-source library that adds a blurred-thumbnail preloader to images.", "stack": ["JavaScript", "OSS"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/progressive-img-loader" }], "featured": true },
+  { "name": "LATAM Airlines @ Globant", "description": "Accessible, high-performance booking experiences with React/Next.js and a BFF layer. Professional work, no public repo.", "stack": ["React", "Next.js", "BFF", "Accessibility"], "links": [], "featured": true }
+]

@@ -1,10 +1,17 @@
 ---
 import Base from "../layouts/Base.astro";
-import AsciiFace from "../components/ascii/AsciiFace.astro";
+import Hero from "../components/Hero.astro";
+import ExperienceTimeline from "../components/ExperienceTimeline.astro";
+import ProjectList from "../components/ProjectList.astro";
+import About from "../components/About.astro";
+import StackList from "../components/StackList.astro";
+import Contact from "../components/Contact.astro";
 ---
-<Base title="Richard Lozada — Software Engineer" description="Full-stack engineer, ~10 years, from developer to Technical Lead.">
-  <section class="container">
-    <h1>Richard Lozada</h1>
-    <AsciiFace label="ASCII portrait of Richard Lozada" />
-  </section>
+<Base title="Richard Lozada — Software Engineer" description="Full-stack engineer with ~10 years of experience, from developer to Technical Lead at Openbank (Grupo Santander).">
+  <Hero />
+  <ExperienceTimeline />
+  <ProjectList />
+  <About />
+  <StackList />
+  <Contact />
 </Base>

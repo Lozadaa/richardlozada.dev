@@ -1,0 +1,17 @@
+---
+import AsciiLink from "./ascii/AsciiLink.astro";
+import site from "../content/site.json";
+const year = new Date().getFullYear();
+---
+<footer class="container contact" aria-labelledby="contact-h">
+  <h2 id="contact-h">Contact</h2>
+  <nav class="contact__links" aria-label="Contact links">
+    {site.contacts.map((c) => <AsciiLink href={c.href} label={c.label} />)}
+  </nav>
+  <p class="contact__sig">— built in ASCII · {year}</p>
+</footer>
+<style>
+  .contact { padding-block: var(--space-8); }
+  .contact__links { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-3); }
+  .contact__sig { color: var(--fg-dim); margin-top: var(--space-4); }
+</style>

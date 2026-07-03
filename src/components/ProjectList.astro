@@ -1,0 +1,14 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+import projects from "../content/projects.json";
+const featured = projects.filter((p) => p.featured);
+---
+<section class="container proj" aria-labelledby="proj-h">
+  <h2 id="proj-h">Projects</h2>
+  <div class="proj__grid">{featured.map((p) => <ProjectCard name={p.name} description={p.description} stack={p.stack} links={p.links} />)}</div>
+</section>
+<style>
+  .proj { padding-block: var(--space-8); }
+  .proj__grid { display: grid; gap: var(--space-3); margin-top: var(--space-3); }
+  @media (min-width: 700px) { .proj__grid { grid-template-columns: repeat(2, 1fr); } }
+</style>

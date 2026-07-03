@@ -1,0 +1,9 @@
+{
+  "name": "Richard Lozada",
+  "tagline": "Full-stack engineer · ~10 years · developer → Technical Lead @ Openbank",
+  "contacts": [
+    { "label": "email", "href": "mailto:hi@richardlozada.com" },
+    { "label": "github", "href": "https://github.com/Lozadaa" },
+    { "label": "web", "href": "https://richardlozada.com" }
+  ]
+}

@@ -1,0 +1,11 @@
+---
+import { aboutParagraphs } from "../content/about";
+---
+<section class="container about" aria-labelledby="about-h">
+  <h2 id="about-h">About</h2>
+  <div class="about__body">{aboutParagraphs.map((p) => <p>{p}</p>)}</div>
+</section>
+<style>
+  .about { padding-block: var(--space-8); }
+  .about__body { max-width: var(--measure); margin-top: var(--space-3); display: grid; gap: var(--space-2); }
+</style>

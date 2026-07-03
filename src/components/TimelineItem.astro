@@ -1,0 +1,26 @@
+---
+interface Role { title: string; period: string; summary: string; tags: string[] }
+interface Props { company: string; location: string; period: string; roles: Role[] }
+const { company, location, period, roles } = Astro.props;
+---
+<li class="tl-item">
+  <h3 class="tl-item__co">{company}</h3>
+  <p class="tl-item__meta">{location} · {period}</p>
+  <ol class="tl-item__roles">
+    {roles.map((r) => (
+      <li>
+        <strong>{r.title}</strong><span class="tl-item__rp"> · {r.period}</span>
+        <p>{r.summary}</p>
+        <p class="tl-item__tags">{r.tags.join(" · ")}</p>
+      </li>
+    ))}
+  </ol>
+</li>
+<style>
+  .tl-item { flex: 0 0 min(88vw, 360px); scroll-snap-align: start; border: 1px solid var(--fg-dim); padding: var(--space-3); }
+  .tl-item__co { font-size: var(--fs-lg); }
+  .tl-item__meta { color: var(--fg-dim); margin-bottom: var(--space-2); }
+  .tl-item__roles { list-style: none; display: grid; gap: var(--space-2); }
+  .tl-item__roles p { margin-top: 4px; }
+  .tl-item__rp, .tl-item__tags { color: var(--fg-dim); }
+</style>
