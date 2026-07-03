@@ -15,6 +15,7 @@ export const ui = {
     "meta.title": "Richard Lozada — Software Engineer",
     "meta.description":
       "Full-stack engineer with ~10 years of experience, from developer to Technical Lead at Openbank (Grupo Santander).",
+    "meta.image-alt": "Richard Lozada — Software Engineer, in ASCII",
     "skip": "Skip to content",
     "hero.face-label": "ASCII portrait of Richard Lozada",
     "hero.links": "Quick links",
@@ -33,11 +34,15 @@ export const ui = {
     "contact.heading": "Contact",
     "contact.links": "Contact links",
     "lang.label": "Language",
+    "notfound.title": "404 — Page not found",
+    "notfound.body": "This route doesn't exist. The path may be mistyped, or the page has moved.",
+    "notfound.home": "back to home",
   },
   es: {
     "meta.title": "Richard Lozada — Ingeniero de Software",
     "meta.description":
       "Ingeniero de software full-stack con ~10 años de experiencia. De developer a Technical Lead en Openbank (Grupo Santander).",
+    "meta.image-alt": "Richard Lozada — Ingeniero de Software, en ASCII",
     "skip": "Saltar al contenido",
     "hero.face-label": "Retrato de Richard Lozada en ASCII",
     "hero.links": "Enlaces rápidos",
@@ -56,6 +61,9 @@ export const ui = {
     "contact.heading": "Contacto",
     "contact.links": "Enlaces de contacto",
     "lang.label": "Idioma",
+    "notfound.title": "404 — Página no encontrada",
+    "notfound.body": "Esta ruta no existe. Puede que la dirección esté mal escrita o que la página se haya movido.",
+    "notfound.home": "volver al inicio",
   },
 } as const;
 

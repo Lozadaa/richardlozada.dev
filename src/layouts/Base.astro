@@ -1,5 +1,10 @@
 ---
 import "../styles/global.css";
+// Preload the above-the-fold font subsets so the hero text paints in JetBrains Mono
+// on first frame — removes the font-swap layout shift (CLS) reported by Lighthouse.
+// Imported (not hardcoded) so the content-hashed URL stays correct across builds.
+import fontLatin400 from "@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2";
+import fontLatin700 from "@fontsource/jetbrains-mono/files/jetbrains-mono-latin-700-normal.woff2";
 import AsciiBackground from "../components/AsciiBackground.astro";
 import { useT, type Locale } from "../i18n/ui";
 
@@ -12,10 +17,16 @@ const canonical = locale === "es" ? esUrl : enUrl;
 const ogImage = new URL("/og.png", site).href;
 const title = t("meta.title");
 const description = t("meta.description");
+const imageAlt = t("meta.image-alt");
 
+// One canonical Person entity (stable @id), referenced by a per-locale ProfilePage.
+// This is the correct i18n model: the person is a single entity; only the *page* is
+// localized — so the localized ProfilePage carries the localized URL while the Person
+// keeps one canonical URL across languages.
+const personId = `${enUrl}#person`;
 const person = {
-  "@context": "https://schema.org",
   "@type": "Person",
+  "@id": personId,
   name: "Richard Lozada",
   url: enUrl,
   jobTitle: "Technical Lead — Frontend",
@@ -23,6 +34,22 @@ const person = {
   sameAs: ["https://github.com/Lozadaa", "https://www.linkedin.com/in/richardlozada/", "https://x.com/Lozadapp"],
   email: "mailto:hi@richardlozada.com",
   knowsAbout: ["React", "Next.js", "Angular", "TypeScript", "Ruby on Rails", "Java", "Node.js", "AWS"],
+};
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": `${canonical}#profilepage`,
+      url: canonical,
+      name: title,
+      inLanguage: locale === "es" ? "es-ES" : "en-US",
+      isPartOf: { "@type": "WebSite", "@id": `${enUrl}#website`, url: enUrl, name: "Richard Lozada" },
+      mainEntity: { "@id": personId },
+      about: { "@id": personId },
+    },
+    person,
+  ],
 };
 ---
 <!doctype html>
@@ -33,6 +60,8 @@ const person = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="preload" href={fontLatin400} as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href={fontLatin700} as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="alternate" hreflang="en" href={enUrl} />
     <link rel="alternate" hreflang="es" href={esUrl} />
     <link rel="alternate" hreflang="x-default" href={enUrl} />
@@ -47,13 +76,17 @@ const person = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta property="og:locale" content={locale === "es" ? "es_ES" : "en_US"} />
     <meta property="og:locale:alternate" content={locale === "es" ? "en_US" : "es_ES"} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@Lozadapp" />
+    <meta name="twitter:creator" content="@Lozadapp" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <script type="application/ld+json" set:html={JSON.stringify(person)} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
     <script is:inline>
       // language routing: explicit choice wins; otherwise follow the browser once
       (function () {

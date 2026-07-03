@@ -1,0 +1,36 @@
+# Richard Lozada
+
+> Full-stack software engineer with ~10 years of experience, from developer to
+> Technical Lead at Openbank (Grupo Santander). Self-taught, currently based in
+> Madrid, Spain. Works across web, mobile and cloud.
+
+## About
+
+- Name: Richard Lozada
+- Role: Technical Lead — Frontend at Openbank (Grupo Santander), owning the
+  security vertical's frontend end-to-end (architecture, code, mentoring).
+- Experience: ~10 years. Path through Venezuela, Colombia, Chile and Spain,
+  shipping for brands like LATAM Airlines, Cencosud and Falabella.
+- Stack: React, Next.js, Angular, TypeScript, Astro, Ruby on Rails, Java/Spring,
+  Node.js, React Native, Kotlin, Swift, AWS, Docker, Kubernetes.
+- Certifications: Oracle Certified Associate (Java SE 8), AWS Certified Cloud
+  Practitioner, CertiProf Lifelong Learning, Platzi Blockchain & Cryptocurrencies.
+
+## Links
+
+- Website: https://richardlozada.com/
+- Website (Spanish): https://richardlozada.com/es/
+- GitHub: https://github.com/Lozadaa
+- LinkedIn: https://www.linkedin.com/in/richardlozada/
+- X / Twitter: https://x.com/Lozadapp
+- Email: hi@richardlozada.com
+
+## Projects
+
+- TreeHealth — collaborative family health map (React, TypeScript, Ruby on Rails).
+- Vzla Terremoto Info — humanitarian PWA for earthquake emergencies in Venezuela
+  (Next.js, Supabase, Leaflet, TypeScript). https://vzla.info
+- FlareRead — free open-source EPUB reader (Electron, React, TypeScript).
+- dexteria — AI Project Executor (TypeScript, AI). https://dexteriapp.com
+- Abastece Combustible (2015) — gas-station availability app used by 10,000+
+  people in Venezuela; co-built at age 17. Covered in press and TV.

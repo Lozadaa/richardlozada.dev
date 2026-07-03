@@ -1,0 +1,27 @@
+---
+import Base from "../layouts/Base.astro";
+import { useT } from "../i18n/ui";
+
+const t = useT("en");
+---
+<Base>
+  <section class="container nf" aria-labelledby="nf-h">
+    <h1 id="nf-h" class="nf__code">404</h1>
+    <p class="nf__title">{t("notfound.title")}</p>
+    <p class="nf__body">{t("notfound.body")}</p>
+    <p class="nf__home"><a href="/">[ {t("notfound.home")} → ]</a></p>
+  </section>
+</Base>
+<style>
+  .nf {
+    min-height: 60vh;
+    display: flex; flex-direction: column; justify-content: center;
+    gap: var(--space-2);
+  }
+  .nf__code {
+    font-size: var(--fs-3xl); font-weight: 700; color: var(--accent); line-height: 1;
+  }
+  .nf__title { font-size: var(--fs-lg); }
+  .nf__body { color: var(--fg-dim); max-width: var(--measure); }
+  .nf__home { margin-top: var(--space-2); }
+</style>

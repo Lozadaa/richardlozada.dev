@@ -12,6 +12,11 @@ export default defineConfig({
   integrations: [
     sitemap({
       i18n: { defaultLocale: "en", locales: { en: "en", es: "es" } },
+      // Stamp every URL with the build time so crawlers see a fresh <lastmod> on deploy.
+      serialize(item) {
+        item.lastmod = new Date().toISOString();
+        return item;
+      },
     }),
   ],
 });
