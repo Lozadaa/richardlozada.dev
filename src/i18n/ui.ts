@@ -12,16 +12,16 @@ export const pick = (v: string | Localized, locale: Locale): string =>
 
 export const ui = {
   en: {
-    "meta.title": "Richard Lozada — Software Engineer",
+    "meta.title": "Richard Lozada, Software Engineer",
     "meta.description":
       "Full-stack engineer with ~10 years of experience, from developer to Technical Lead at Openbank (Grupo Santander).",
-    "meta.image-alt": "Richard Lozada — Software Engineer, in ASCII",
+    "meta.image-alt": "Richard Lozada, Software Engineer, in ASCII",
     "skip": "Skip to content",
     "hero.face-label": "ASCII portrait of Richard Lozada",
     "hero.links": "Quick links",
     "exp.heading": "Experience",
     "exp.tooltip":
-      "Each mark is either the company’s real logo rendered in ASCII, or — where no logo was available — the company’s initials set big in the same ASCII texture.",
+      "Each mark is either the company’s real logo rendered in ASCII, or, where no logo was available, the company’s initials set big in the same ASCII texture.",
     "exp.tooltip-label":
       "About the marks: each emblem is either the company's real logo in ASCII, or the company's initials set big in ASCII.",
     "exp.role": "role",
@@ -34,15 +34,15 @@ export const ui = {
     "contact.heading": "Contact",
     "contact.links": "Contact links",
     "lang.label": "Language",
-    "notfound.title": "404 — Page not found",
+    "notfound.title": "404: Page not found",
     "notfound.body": "This route doesn't exist. The path may be mistyped, or the page has moved.",
     "notfound.home": "back to home",
   },
   es: {
-    "meta.title": "Richard Lozada — Ingeniero de Software",
+    "meta.title": "Richard Lozada, Ingeniero de Software",
     "meta.description":
       "Ingeniero de software full-stack con ~10 años de experiencia. De developer a Technical Lead en Openbank (Grupo Santander).",
-    "meta.image-alt": "Richard Lozada — Ingeniero de Software, en ASCII",
+    "meta.image-alt": "Richard Lozada, Ingeniero de Software, en ASCII",
     "skip": "Saltar al contenido",
     "hero.face-label": "Retrato de Richard Lozada en ASCII",
     "hero.links": "Enlaces rápidos",
@@ -61,7 +61,7 @@ export const ui = {
     "contact.heading": "Contacto",
     "contact.links": "Enlaces de contacto",
     "lang.label": "Idioma",
-    "notfound.title": "404 — Página no encontrada",
+    "notfound.title": "404: Página no encontrada",
     "notfound.body": "Esta ruta no existe. Puede que la dirección esté mal escrita o que la página se haya movido.",
     "notfound.home": "volver al inicio",
   },

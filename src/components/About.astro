@@ -13,7 +13,7 @@ const t = useT(locale);
         {i === aboutParagraphs[locale].length - 1 && (
           <span class="about__press">
             {press.map((pl) => (
-              <a class="about__cert" href={pl.href} target="_blank" rel="noopener" title={`Abastece Combustible (2015) — ${pl.name}`}>
+              <a class="about__cert" href={pl.href} target="_blank" rel="noopener" title={`Abastece Combustible (2015), ${pl.name}`}>
                 <span class="about__bracket" aria-hidden="true">[ </span>{pl.name} <span class="about__issuer">↗</span><span class="about__bracket" aria-hidden="true"> ]</span>
               </a>
             ))}
@@ -27,7 +27,7 @@ const t = useT(locale);
     <ul class="about__cert-list">
       {certifications.map((c) => (
         <li>
-          <a class="about__cert" href={c.href} target="_blank" rel="noopener" title={`${c.name} — ${c.issuer}`}>
+          <a class="about__cert" href={c.href} target="_blank" rel="noopener" title={`${c.name} · ${c.issuer}`}>
             <span class="about__bracket" aria-hidden="true">[ </span>{c.name} <span class="about__issuer">· {c.issuer} ↗</span><span class="about__bracket" aria-hidden="true"> ]</span>
           </a>
         </li>
