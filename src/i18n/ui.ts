@@ -20,11 +20,12 @@ export const ui = {
     "hero.links": "Quick links",
     "exp.heading": "Experience",
     "exp.tooltip":
-      "Each mark is either the company’s real logo rendered in ASCII, or — where no logo was available — a unique “sigil” generated deterministically from the company’s name. Same name, same emblem, every time.",
+      "Each mark is either the company’s real logo rendered in ASCII, or — where no logo was available — the company’s initials set big in the same ASCII texture.",
     "exp.tooltip-label":
-      "About the marks: each emblem is either the company's real logo in ASCII, or a unique sigil generated from the company name.",
+      "About the marks: each emblem is either the company's real logo in ASCII, or the company's initials set big in ASCII.",
     "exp.role": "role",
     "exp.roles": "roles",
+    "exp.more": "show more · +{y} years of experience",
     "proj.heading": "Projects",
     "about.heading": "About",
     "stack.heading": "Stack",
@@ -42,11 +43,12 @@ export const ui = {
     "hero.links": "Enlaces rápidos",
     "exp.heading": "Experiencia",
     "exp.tooltip":
-      "Cada marca es el logo real de la empresa renderizado en ASCII o — cuando no había logo disponible — un “sigilo” único generado determinísticamente a partir del nombre de la empresa. Mismo nombre, mismo emblema, siempre.",
+      "Cada marca es el logo real de la empresa renderizado en ASCII o — cuando no había logo disponible — las iniciales de la empresa en grande, con la misma textura ASCII.",
     "exp.tooltip-label":
-      "Sobre las marcas: cada emblema es el logo real de la empresa en ASCII, o un sigilo único generado a partir del nombre de la empresa.",
+      "Sobre las marcas: cada emblema es el logo real de la empresa en ASCII, o las iniciales de la empresa en grande en ASCII.",
     "exp.role": "rol",
     "exp.roles": "roles",
+    "exp.more": "ver más · +{y} años de experiencia",
     "proj.heading": "Proyectos",
     "about.heading": "Sobre mí",
     "stack.heading": "Stack",

@@ -6,6 +6,12 @@ const locale = (Astro.currentLocale ?? "en") as Locale;
 const t = useT(locale);
 const logos = logosRaw as Record<string, string[]>;
 const cols = (key: string) => Math.max(...logos[key].map((l) => l.length));
+
+const VISIBLE = 5;
+const rest = experience.slice(VISIBLE);
+const restYears = rest.flatMap((e) => (e.period.en.match(/\d{4}/g) ?? []).map(Number));
+const extraYears = restYears.length ? Math.max(...restYears) - Math.min(...restYears) || 1 : 0;
+const moreLabel = t("exp.more").replace("{y}", String(extraYears));
 ---
 <section class="container exp" aria-labelledby="exp-h">
   <div class="exp__head">
@@ -17,7 +23,7 @@ const cols = (key: string) => Math.max(...logos[key].map((l) => l.length));
   </div>
   <ol class="exp__log">
     {experience.map((e, i) => (
-      <li class="exp__entry" data-reveal>
+      <li class="exp__entry" data-reveal hidden={i >= VISIBLE} style={`--i:${i}`}>
         <details class="exp__item">
           <summary>
             <span class="exp__node" aria-hidden="true">{i === 0 ? "●" : "○"}</span>
@@ -38,7 +44,7 @@ const cols = (key: string) => Math.max(...logos[key].map((l) => l.length));
                 <div class="exp__role">
                   <strong>{r.title}</strong><span class="exp__rp"> · {pick(r.period, locale)}</span>
                   <p>{pick(r.summary, locale)}</p>
-                  <p class="exp__tags">{r.tags.map((t) => <span class="exp__tag">{t}</span>)}</p>
+                  <p class="exp__tags">{r.tags.map((tag) => <span class="exp__tag">{tag}</span>)}</p>
                 </div>
               </li>
             ))}
@@ -46,8 +52,21 @@ const cols = (key: string) => Math.max(...logos[key].map((l) => l.length));
         </details>
       </li>
     ))}
+    {rest.length > 0 && (
+      <li class="exp__moreli">
+        <span class="exp__node" aria-hidden="true">┄</span>
+        <button class="exp__more" type="button">[+] {moreLabel}</button>
+      </li>
+    )}
   </ol>
 </section>
+<script>
+  const more = document.querySelector<HTMLButtonElement>(".exp__more");
+  more?.addEventListener("click", () => {
+    document.querySelectorAll(".exp__entry[hidden]").forEach((el) => el.removeAttribute("hidden"));
+    more.closest(".exp__moreli")?.remove();
+  });
+</script>
 <style>
   .exp { padding-block: var(--space-8); }
   .exp__head { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); }
@@ -68,8 +87,8 @@ const cols = (key: string) => Math.max(...logos[key].map((l) => l.length));
     content: ""; position: absolute; top: 6px; bottom: 6px; left: 7px;
     border-left: 1px dashed var(--fg-dim); opacity: .5;
   }
-  .exp__entry { position: relative; padding-left: var(--space-4); }
-  .exp__entry + .exp__entry { margin-top: var(--space-3); }
+  .exp__entry, .exp__moreli { position: relative; padding-left: var(--space-4); list-style: none; }
+  .exp__entry + .exp__entry, .exp__moreli { margin-top: var(--space-3); }
   .exp__node {
     position: absolute; left: 0; top: 14px; width: 15px; text-align: center;
     color: var(--fg-dim); background: var(--bg); line-height: 1;
@@ -77,10 +96,9 @@ const cols = (key: string) => Math.max(...logos[key].map((l) => l.length));
   }
   .exp__entry:first-child .exp__node { color: var(--accent); }
 
-  .exp__item { border: 1px solid transparent; border-left-color: transparent; }
   .exp__item summary {
     cursor: pointer; list-style: none;
-    display: grid; grid-template-columns: minmax(120px, 190px) 1fr; gap: var(--space-3);
+    display: grid; grid-template-columns: minmax(140px, 230px) 1fr; gap: var(--space-3);
     align-items: center; padding: var(--space-2);
     border: 1px solid color-mix(in srgb, var(--fg-dim) 35%, transparent);
     transition: border-color .25s, background .25s;
@@ -96,13 +114,27 @@ const cols = (key: string) => Math.max(...logos[key].map((l) => l.length));
   .exp__markbox { display: block; container-type: inline-size; min-width: 0; }
   .exp__mark {
     margin: 0; white-space: pre; overflow: hidden; text-align: center;
-    font-size: min(10px, calc(100cqw / (var(--cols) * 0.6001)));
+    font-size: min(11px, calc(100cqw / (var(--cols) * 0.6001)));
     line-height: 1.1; color: var(--fg-dim);
-    transition: color .3s, text-shadow .3s;
+    transition: color .3s, filter .3s;
   }
+  /* a slow scanning glint sweeps each mark, out of phase per entry */
+  @media (prefers-reduced-motion: no-preference) {
+    .exp__mark {
+      background: linear-gradient(105deg, #707070 0% 38%, #ececec 50%, #707070 62% 100%) 0 0 / 240% 100%;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: exp-scan 6s linear infinite;
+      animation-delay: calc(var(--i, 0) * -1.3s);
+    }
+    @keyframes exp-scan { to { background-position: -240% 0; } }
+  }
+  /* ignite on hover / open */
   .exp__entry:hover .exp__mark, .exp__item[open] .exp__mark {
     color: var(--accent);
-    text-shadow: 0 0 14px color-mix(in srgb, var(--accent) 45%, transparent);
+    -webkit-text-fill-color: var(--accent);
+    animation: none;
+    filter: drop-shadow(0 0 9px color-mix(in srgb, var(--accent) 55%, transparent));
   }
   .exp__entry:hover .exp__node, .exp__item[open] .exp__node {
     color: var(--accent);
@@ -122,6 +154,10 @@ const cols = (key: string) => Math.max(...logos[key].map((l) => l.length));
     display: grid; gap: var(--space-3);
     border: 1px solid color-mix(in srgb, var(--fg-dim) 35%, transparent); border-top: 0;
   }
+  @media (prefers-reduced-motion: no-preference) {
+    .exp__item[open] .exp__roles { animation: roles-in .35s ease both; }
+    @keyframes roles-in { from { opacity: 0; transform: translateY(-6px); } }
+  }
   .exp__roles > li { display: grid; grid-template-columns: auto 1fr; gap: var(--space-2); }
   .exp__branch { color: var(--fg-dim); user-select: none; }
   .exp__role p { margin-top: 4px; max-width: 72ch; }
@@ -131,12 +167,27 @@ const cols = (key: string) => Math.max(...logos[key].map((l) => l.length));
   .exp__tag::before { content: "["; }
   .exp__tag::after { content: "]"; }
 
+  /* the "show more" gate sits on the spine like one more entry */
+  .exp__moreli .exp__node { top: 50%; translate: 0 -50%; }
+  .exp__more {
+    font: inherit; width: 100%; cursor: pointer; text-align: center;
+    color: var(--accent); background: none;
+    border: 1px dashed color-mix(in srgb, var(--fg-dim) 55%, transparent);
+    padding: var(--space-2) var(--space-3);
+    transition: border-color .2s, background .2s;
+  }
+  .exp__more:hover {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 6%, transparent);
+  }
+  .exp__more:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
   @media (max-width: 560px) {
     .exp__item summary { grid-template-columns: 1fr; justify-items: center; text-align: center; }
     .exp__markbox { width: min(60vw, 220px); }
     .exp__meta { justify-items: center; }
     .exp__log::before { display: none; }
     .exp__node { display: none; }
-    .exp__entry { padding-left: 0; }
+    .exp__entry, .exp__moreli { padding-left: 0; }
   }
 </style>

@@ -45,75 +45,70 @@ def img_to_ascii(path, W=40, dead=0.35, gamma=0.85, crop=None):
     return out
 
 
-def sigil(name, W=25, H=13):
-    """Deterministic organic emblem from a company name.
+def monogram(text, W=None):
+    """Companies without a logo get their initials set big in ASCII.
 
-    A hash seeds a value field on the left half; two smoothing passes turn
-    the noise into coherent lobes; a radial falloff (whose shape is itself
-    hash-driven, so silhouettes differ per company) focuses the mass into a
-    centered emblem; mirroring makes it read as a designed mark rather than
-    static. Same name → same sigil, every time.
+    The letters are drawn with a bold monospace font and rasterized through
+    the same ramp as the real logos, so both families of marks share one
+    texture.
     """
-    hsh = hashlib.sha256(name.encode()).digest()
-    half = (W + 1) // 2
-    field = [[hsh[(y * half + x) % len(hsh)] / 255 for x in range(half)] for y in range(H)]
-    for _ in range(2):
-        nxt = [[0.0] * half for _ in range(H)]
-        for y in range(H):
-            for x in range(half):
-                s = c = 0
-                for dy in (-1, 0, 1):
-                    for dx in (-1, 0, 1):
-                        ny, nx = y + dy, x + dx
-                        if 0 <= ny < H and 0 <= nx < half:
-                            s += field[ny][nx]; c += 1
-                nxt[y][x] = s / c
-        field = nxt
-    lo = min(min(r) for r in field); hi = max(max(r) for r in field) or 1
-    # hash-driven silhouette: exponent stretches the falloff, ax/ay squash it
-    expo = 1.4 + (hsh[0] / 255) * 1.8
-    ax = 0.75 + (hsh[1] / 255) * 0.5
-    ay = 0.75 + (hsh[2] / 255) * 0.5
-    cx, cy = (W - 1) / 2, (H - 1) / 2
-    rows = []
+    from PIL import ImageDraw, ImageFont
+    font = ImageFont.truetype(r"C:\Windows\Fonts\consolab.ttf", 220)
+    probe = ImageDraw.Draw(Image.new("RGB", (8, 8)))
+    l, t, r, b = probe.textbbox((0, 0), text, font=font)
+    pad = 28
+    img = Image.new("RGB", (r - l + pad * 2, b - t + pad * 2), (255, 255, 255))
+    ImageDraw.Draw(img).text((pad - l, pad - t), text, font=font, fill=(0, 0, 0))
+    if W is None:
+        W = min(54, 18 + 14 * len(text))
+    return img_to_ascii_img(img, W=W, dead=0.22, gamma=0.45)
+
+
+def img_to_ascii_img(img, W, dead, gamma):
+    """Same pipeline as img_to_ascii but starting from a PIL image."""
+    px = img.load(); w, h = img.size
+    corners = [px[0, 0], px[w - 1, 0], px[0, h - 1], px[w - 1, h - 1]]
+    bg = tuple(sum(c[i] for c in corners) // 4 for i in range(3))
+    H = max(1, round(W * (h / w) * 0.5))
+    s = img.resize((W, H), Image.LANCZOS); sp = s.load()
+    dist = [[math.dist(sp[x, y], bg) for x in range(W)] for y in range(H)]
+    mx = max(max(r) for r in dist) or 1
+    out = []
     for y in range(H):
         line = ""
         for x in range(W):
-            fx = x if x < half else W - 1 - x
-            v = (field[y][fx] - lo) / (hi - lo)
-            r = math.hypot((x - cx) / (cx + 1) * ax, (y - cy) / (cy + 1) * ay)
-            v *= max(0.0, 1 - r ** expo)
-            line += RAMP[min(len(RAMP) - 1, int(v * (len(RAMP) + 2)))]
-        rows.append(line.rstrip())
-    while rows and not rows[0].strip(): rows.pop(0)
-    while rows and not rows[-1].strip(): rows.pop()
-    return rows
+            t = dist[y][x] / mx
+            t = 0 if t < dead else ((t - dead) / (1 - dead)) ** gamma
+            line += RAMP[min(len(RAMP) - 1, int(t * len(RAMP)))]
+        out.append(line.rstrip())
+    while out and not out[0].strip(): out.pop(0)
+    while out and not out[-1].strip(): out.pop()
+    return out
 
 
-def globant_arrow(H=13, MAXW=21):
-    """Globant's chevron, with ramped edges instead of a hard block."""
-    mid = (H - 1) / 2
+def globant_chevron(H=13, T=7, SLOPE=2):
+    """Globant's mark is a bold ">" — two diagonal strokes meeting at a point."""
+    mid = (H - 1) // 2
     out = []
     for y in range(H):
-        t = 1 - abs(y - mid) / (mid + 1)
-        wdt = max(1, round(t * MAXW))
-        core = "@" * max(0, wdt - 2)
-        edge = "#=" if wdt > 2 else "="
-        out.append("  " + core + edge[: min(2, wdt)])
+        x0 = (y if y <= mid else H - 1 - y) * SLOPE
+        out.append(" " * x0 + "=" + "@" * T + "=")
     return out
 
 
 PIC = r"C:\Users\richa\Pictures"
 logos = {}
 if HAVE_PIL:
-    logos["openbank"] = img_to_ascii(PIC + r"\channels4_profile.jpg", W=42, dead=0.30, gamma=0.75)
-    # crop to the globe only — the "WiTI" wordmark below is dropped
-    logos["witi"] = img_to_ascii(PIC + r"\witichile_logo.jpg", W=42, dead=0.28, gamma=0.75, crop=(0, 0, 200, 118))
-logos["globant"] = globant_arrow()
-for key, name in [("nala", "Nala"), ("triplea", "TripleA Smart Solutions"), ("streetrip", "Streetrip"),
-                  ("freelance", "Freelance"), ("bbr", "BBR SpA"), ("abstract", "Abstract Ltda"),
-                  ("sinergia", "Sinergia Internacional"), ("fermat", "Fermat")]:
-    logos[key] = sigil(name)
+    # flat logo on white — near-binary ink with a thin antialiased edge
+    logos["openbank"] = img_to_ascii(PIC + r"\channels4_profile.jpg", W=56, dead=0.22, gamma=0.45)
+    # crop tight to the globe icon — the "WiTI" wordmark below is dropped
+    logos["witi"] = img_to_ascii(PIC + r"\witichile_logo.jpg", W=50, dead=0.24, gamma=0.6, crop=(22, 4, 180, 122))
+logos["globant"] = globant_chevron()
+if HAVE_PIL:
+    for key, initials in [("nala", "N"), ("triplea", "3A"), ("streetrip", "S"),
+                          ("freelance", "RL"), ("bbr", "BBR"), ("abstract", "A"),
+                          ("sinergia", "SI"), ("fermat", "F")]:
+        logos[key] = monogram(initials)
 
 json.dump(logos, open("src/content/logos.json", "w", encoding="utf-8"), ensure_ascii=False, indent=0)
 print("wrote src/content/logos.json with", len(logos), "marks\n")
