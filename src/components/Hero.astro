@@ -2,7 +2,7 @@
 import AsciiFace from "./ascii/AsciiFace.astro";
 import AsciiLink from "./ascii/AsciiLink.astro";
 import site from "../content/site.json";
-import { useT, pick, type Locale } from "../i18n/ui";
+import { useT, type Locale } from "../i18n/ui";
 const locale = (Astro.currentLocale ?? "en") as Locale;
 const t = useT(locale);
 ---
@@ -10,7 +10,7 @@ const t = useT(locale);
   <AsciiFace label={t("hero.face-label")} />
   <div class="hero__meta">
     <h1>{site.name}</h1>
-    <p class="hero__tagline">{pick(site.tagline, locale)}</p>
+    <p class="hero__tagline">{site.tagline[locale].map((line) => <span class="hero__tagline-line">{line}</span>)}</p>
     <nav class="hero__links" aria-label={t("hero.links")}>
       {site.contacts.map((c) => <AsciiLink href={c.href} label={c.label} />)}
     </nav>
@@ -20,6 +20,7 @@ const t = useT(locale);
   .hero { display: grid; gap: var(--space-4); padding-block: var(--space-8); align-items: center; }
   @media (min-width: 800px) { .hero { grid-template-columns: 1fr 1fr; } }
   .hero__tagline { color: var(--fg-dim); max-width: var(--measure); margin-block: var(--space-2); }
+  .hero__tagline-line { display: block; }
   .hero__links { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
   h1 { font-size: var(--fs-3xl); line-height: 1.05; }
 </style>
