@@ -17,7 +17,7 @@
     "description": { "en": "AI Project Executor — an assistant that plans and runs project work, with a companion landing (dexteria-web).", "es": "AI Project Executor — un asistente de IA que planifica y ejecuta el trabajo de tus proyectos. Incluye su propia landing (dexteria-web)." },
     "stack": ["TypeScript", "AI"],
     "links": [
-      { "label": "web →", "href": "https://lifestepper.web.app" },
+      { "label": "web →", "href": "https://dexteriapp.com" },
       { "label": "repo →", "href": "https://github.com/Lozadaa/dexteria" }
     ], "featured": true },
   { "name": "progressive-img-loader",
