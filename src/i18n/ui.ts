@@ -32,7 +32,6 @@ export const ui = {
     "stack.heading": "Stack",
     "contact.heading": "Contact",
     "contact.links": "Contact links",
-    "footer.sig": "— built in ASCII",
     "lang.label": "Language",
   },
   es: {
@@ -56,7 +55,6 @@ export const ui = {
     "stack.heading": "Stack",
     "contact.heading": "Contacto",
     "contact.links": "Enlaces de contacto",
-    "footer.sig": "— hecho en ASCII",
     "lang.label": "Idioma",
   },
 } as const;
