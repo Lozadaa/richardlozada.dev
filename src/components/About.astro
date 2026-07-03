@@ -1,5 +1,5 @@
 ---
-import { aboutParagraphs } from "../content/about";
+import { aboutParagraphs, certifications } from "../content/about";
 import { useT, type Locale } from "../i18n/ui";
 const locale = (Astro.currentLocale ?? "en") as Locale;
 const t = useT(locale);
@@ -7,6 +7,18 @@ const t = useT(locale);
 <section class="container about" aria-labelledby="about-h">
   <h2 id="about-h">{t("about.heading")}</h2>
   <div class="about__body" data-reveal>{aboutParagraphs[locale].map((p) => <p>{p}</p>)}</div>
+  <div class="about__certs" data-reveal>
+    <h3 class="about__certs-h">{t("about.certs")}</h3>
+    <ul>
+      {certifications.map((c, i) => (
+        <li>
+          <span class="about__branch" aria-hidden="true">{i === certifications.length - 1 ? "└─" : "├─"}</span>
+          <a href={c.href} target="_blank" rel="noopener">{c.name}</a>
+          <span class="about__issuer"> · {c.issuer}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
 </section>
 <style>
   .about { padding-block: var(--space-8); }
@@ -16,4 +28,9 @@ const t = useT(locale);
     gap: var(--space-3);
   }
   .about__body p { max-width: none; font-size: var(--fs-lg); }
+  .about__certs { margin-top: var(--space-4); }
+  .about__certs-h { font-size: var(--fs-base); color: var(--fg-dim); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; }
+  .about__certs ul { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: grid; gap: var(--space-1); }
+  .about__branch { color: var(--fg-dim); user-select: none; margin-right: var(--space-1); }
+  .about__issuer { color: var(--fg-dim); }
 </style>

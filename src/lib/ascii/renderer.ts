@@ -32,7 +32,7 @@ export function mountAsciiFace(canvas: HTMLCanvasElement): void {
   if (reduce) { paint(false); return; }
 
   let running = false, visible = false, raf = 0;
-  function loop() { field.step(); paint(true); raf = requestAnimationFrame(loop); }
+  function loop() { field.step(performance.now() / 1000); paint(true); raf = requestAnimationFrame(loop); }
   function start() { if (!running && visible && !document.hidden) { running = true; loop(); } }
   function stop() { running = false; cancelAnimationFrame(raf); }
 
