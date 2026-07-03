@@ -28,7 +28,7 @@ d.text((tx, 240), "Richard", font=mono(72, bold=True), fill=FG)
 d.text((tx, 320), "Lozada", font=mono(72, bold=True), fill=FG)
 d.text((tx, 420), "Full-stack engineer", font=mono(26), fill=DIM)
 d.text((tx, 456), "~10y · Technical Lead", font=mono(26), fill=DIM)
-d.text((tx, 520), "richardlozada.com", font=mono(28, bold=True), fill=ACCENT)
+d.text((tx, 520), "richardlozada.dev", font=mono(28, bold=True), fill=ACCENT)
 
 img.save("public/og.png")
 print("wrote public/og.png", img.size)

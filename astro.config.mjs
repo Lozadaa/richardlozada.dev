@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://richardlozada.com",
+  site: "https://richardlozada.dev",
   output: "static",
   i18n: {
     defaultLocale: "en",

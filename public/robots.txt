@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://richardlozada.com/sitemap-index.xml
+Sitemap: https://richardlozada.dev/sitemap-index.xml

@@ -18,12 +18,12 @@
 
 ## Links
 
-- Website: https://richardlozada.com/
-- Website (Spanish): https://richardlozada.com/es/
+- Website: https://richardlozada.dev/
+- Website (Spanish): https://richardlozada.dev/es/
 - GitHub: https://github.com/Lozadaa
 - LinkedIn: https://www.linkedin.com/in/richardlozada/
 - X / Twitter: https://x.com/Lozadapp
-- Email: hi@richardlozada.com
+- Email: hi@richardlozada.dev
 
 ## Projects
 
