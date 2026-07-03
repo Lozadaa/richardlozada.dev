@@ -1,4 +1,10 @@
 [
+  { "name": "JuegaMundial",
+    "description": { "en": "A collection of World Cup games spanning 1930 to 2026: trivia quiz, La Incógnita Mundialera, La Conexión and ¿Quién es?", "es": "Colección de juegos sobre los Mundiales de 1930 a 2026: quiz de trivia, La Incógnita Mundialera, La Conexión y ¿Quién es?" },
+    "stack": ["Next.js", "TypeScript", "Tailwind"],
+    "links": [
+      { "label": "web →", "href": "https://juegamundial.xyz" }
+    ], "featured": true },
   { "name": "TreeHealth",
     "description": { "en": "Collaborative family health map: build your family tree, record relatives' medical history and surface hereditary risk patterns worth discussing with a doctor.", "es": "Mapa colaborativo de salud familiar: construye tu árbol genealógico, registra el historial médico de tus familiares y descubre patrones de riesgo hereditario que vale la pena conversar con un médico." },
     "stack": ["React", "TypeScript", "Ruby on Rails", "Tailwind"],
