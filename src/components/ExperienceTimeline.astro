@@ -121,10 +121,10 @@ const moreLabel = t("exp.more").replace("{y}", String(extraYears));
   /* a slow scanning glint sweeps each mark, out of phase per entry */
   @media (prefers-reduced-motion: no-preference) {
     .exp__mark {
-      background: linear-gradient(105deg, #707070 0% 38%, #ececec 50%, #707070 62% 100%) 0 0 / 240% 100%;
+      background: linear-gradient(105deg, #666 0% 35%, #fff 47%, #ffb37a 50%, #fff 53%, #666 65% 100%) 0 0 / 240% 100%;
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: exp-scan 6s linear infinite;
+      animation: exp-scan 5s linear infinite;
       animation-delay: calc(var(--i, 0) * -1.3s);
     }
     @keyframes exp-scan { to { background-position: -240% 0; } }
