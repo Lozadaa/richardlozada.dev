@@ -1,16 +1,22 @@
 [
   { "name": "TreeHealth",
-    "description": { "en": "Humanitarian PWA for Venezuela: report yourself safe, find relatives, contribute information and locate aid.", "es": "PWA humanitaria para Venezuela: repórtate a salvo, encuentra a tus familiares, aporta información y ubica puntos de ayuda." },
+    "description": { "en": "Collaborative family health map — build your family tree, record relatives' medical history and surface hereditary risk patterns worth discussing with a doctor.", "es": "Mapa colaborativo de salud familiar — construye tu árbol genealógico, registra el historial médico de tus familiares y descubre patrones de riesgo hereditario que vale la pena conversar con un médico." },
+    "stack": ["React", "TypeScript", "Ruby on Rails", "Tailwind"],
+    "links": [
+      { "label": "web →", "href": "https://mapa-salud-frontend-production.up.railway.app" }
+    ], "featured": true },
+  { "name": "Vzla Terremoto Info",
+    "description": { "en": "Humanitarian PWA for earthquake emergencies in Venezuela: report yourself safe, find relatives, contribute information and locate aid.", "es": "PWA humanitaria para emergencias sísmicas en Venezuela: repórtate a salvo, encuentra a tus familiares, aporta información y ubica puntos de ayuda." },
     "stack": ["Next.js", "Supabase", "Leaflet", "TypeScript"],
     "links": [
       { "label": "web →", "href": "https://vzla.info" },
       { "label": "repo →", "href": "https://github.com/Lozadaa/vzla-info" }
     ], "featured": true },
   { "name": "FlareRead",
-    "description": { "en": "JustRead — a focused, distraction-free reading application.", "es": "JustRead — una app de lectura minimalista, pensada para leer sin distracciones." },
+    "description": { "en": "Free open-source EPUB reader for deep, distraction-free reading.", "es": "Lector de EPUB open-source y gratuito, pensado para leer a fondo y sin distracciones." },
     "stack": ["Electron", "React", "TypeScript"],
     "links": [
-      { "label": "releases →", "href": "https://github.com/Lozadaa/FlareRead/releases" },
+      { "label": "web →", "href": "https://flareread.richardlozada.dev" },
       { "label": "repo →", "href": "https://github.com/Lozadaa/FlareRead" }
     ], "featured": true },
   { "name": "dexteria",
