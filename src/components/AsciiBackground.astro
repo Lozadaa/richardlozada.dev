@@ -1,0 +1,58 @@
+---
+---
+<canvas class="ascii-bg" aria-hidden="true"></canvas>
+<script>
+  interface G { x: number; y: number; vx: number; vy: number; dx: number; dy: number; ch: string; a: number }
+  const cv = document.querySelector<HTMLCanvasElement>(".ascii-bg");
+  if (cv) {
+    const ctx = cv.getContext("2d")!;
+    const SYMS = "01<>/\\{}[]()=+*#.:~^|".split("");
+    let W = 0, H = 0, glyphs: G[] = [];
+    let mx = -9999, my = -9999;
+    function build() {
+      W = cv!.width = window.innerWidth;
+      H = cv!.height = window.innerHeight;
+      const count = Math.min(240, Math.floor((W * H) / 9000));
+      glyphs = Array.from({ length: count }, (): G => ({
+        x: Math.random() * W, y: Math.random() * H, vx: 0, vy: 0,
+        dx: (Math.random() - 0.5) * 0.12, dy: (Math.random() - 0.5) * 0.12,
+        ch: SYMS[Math.floor(Math.random() * SYMS.length)],
+        a: 0.03 + Math.random() * 0.05,
+      }));
+    }
+    function paint(move: boolean) {
+      ctx.clearRect(0, 0, W, H);
+      ctx.font = "13px monospace"; ctx.textBaseline = "top";
+      const R = 110;
+      for (const g of glyphs) {
+        if (move) {
+          const ddx = g.x - mx, ddy = g.y - my, d = Math.hypot(ddx, ddy);
+          if (d < R && d > 0.01) { const f = (1 - d / R) * 0.5; g.vx += (ddx / d) * f; g.vy += (ddy / d) * f; }
+          g.vx *= 0.92; g.vy *= 0.92;
+          g.x += g.vx + g.dx; g.y += g.vy + g.dy;
+          if (g.x < -10) g.x = W + 10; if (g.x > W + 10) g.x = -10;
+          if (g.y < -10) g.y = H + 10; if (g.y > H + 10) g.y = -10;
+        }
+        ctx.fillStyle = `rgba(230,230,230,${g.a})`;
+        ctx.fillText(g.ch, g.x, g.y);
+      }
+    }
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    build();
+    window.addEventListener("resize", () => { build(); paint(false); });
+    if (reduce) {
+      paint(false);
+    } else {
+      let raf = 0, running = false;
+      const loop = () => { paint(true); raf = requestAnimationFrame(loop); };
+      const start = () => { if (!running && !document.hidden) { running = true; loop(); } };
+      const stop = () => { running = false; cancelAnimationFrame(raf); };
+      window.addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; });
+      document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+      start();
+    }
+  }
+</script>
+<style>
+  .ascii-bg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
+</style>

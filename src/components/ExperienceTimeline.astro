@@ -1,24 +1,63 @@
 ---
-import TimelineItem from "./TimelineItem.astro";
 import experience from "../content/experience.json";
+import logosRaw from "../content/logos.json";
+const logos = logosRaw as Record<string, string[]>;
 ---
 <section class="container exp" aria-labelledby="exp-h">
-  <h2 id="exp-h">Experience</h2>
-  <p class="exp__hint">Scroll horizontally, or use Tab / arrow keys.</p>
-  <ol class="exp__track" tabindex="0" aria-label="Work experience timeline">
-    {experience.map((e) => <TimelineItem company={e.company} location={e.location} period={e.period} roles={e.roles} />)}
-  </ol>
+  <div class="exp__head">
+    <h2 id="exp-h">Experience</h2>
+    <span class="exp__info" tabindex="0" role="note"
+      aria-label="About the marks: each emblem is either the company's real logo in ASCII, or a unique sigil generated from the company name.">
+      <span class="exp__i" aria-hidden="true">&#9432;</span>
+      <span class="exp__tip" role="tooltip">Each mark is either the company&rsquo;s real logo rendered in ASCII, or &mdash; where no logo was available &mdash; a unique &ldquo;sigil&rdquo; generated deterministically from the company&rsquo;s name. Same name, same emblem, every time.</span>
+    </span>
+  </div>
+  <p class="exp__hint">Select a company to expand roles &amp; details.</p>
+  <div class="exp__grid">
+    {experience.map((e) => (
+      <details class="exp__tile">
+        <summary>
+          <pre class="exp__mark" aria-hidden="true">{logos[e.logo].join("\n")}</pre>
+          <span class="exp__co">{e.company}</span>
+          <span class="exp__period">{e.period} &middot; {e.location}</span>
+        </summary>
+        <ol class="exp__roles">
+          {e.roles.map((r) => (
+            <li>
+              <strong>{r.title}</strong><span class="exp__rp"> &middot; {r.period}</span>
+              <p>{r.summary}</p>
+              <p class="exp__tags">{r.tags.join("  ·  ")}</p>
+            </li>
+          ))}
+        </ol>
+      </details>
+    ))}
+  </div>
 </section>
 <style>
   .exp { padding-block: var(--space-8); }
-  .exp__hint { color: var(--fg-dim); margin-block: var(--space-2); }
-  .exp__track { list-style: none; display: flex; gap: var(--space-3); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: var(--space-2); }
-  .exp__track:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  .exp__head { display: flex; align-items: center; gap: var(--space-2); }
+  .exp__info { position: relative; cursor: help; color: var(--accent); display: inline-flex; }
+  .exp__info:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .exp__tip {
+    position: absolute; top: 130%; left: 0; width: min(320px, 80vw); z-index: 5;
+    background: #000; border: 1px solid var(--fg-dim); color: var(--fg);
+    padding: var(--space-2); font-size: var(--fs-sm); line-height: 1.5;
+    opacity: 0; visibility: hidden; transition: opacity .12s;
+  }
+  .exp__info:hover .exp__tip, .exp__info:focus .exp__tip, .exp__info:focus-within .exp__tip { opacity: 1; visibility: visible; }
+  .exp__hint { color: var(--fg-dim); margin-block: var(--space-2) var(--space-3); }
+  .exp__grid { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+  .exp__tile { border: 1px solid var(--fg-dim); padding: var(--space-3); }
+  .exp__tile[open] { border-color: var(--accent); }
+  .exp__tile summary { cursor: pointer; list-style: none; display: grid; justify-items: center; gap: 4px; text-align: center; }
+  .exp__tile summary::-webkit-details-marker { display: none; }
+  .exp__tile summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .exp__mark { font-size: 10px; line-height: 1.05; color: var(--fg-dim); white-space: pre; overflow-x: auto; max-width: 100%; margin-bottom: var(--space-1); }
+  .exp__tile[open] .exp__mark { color: var(--accent); }
+  .exp__co { font-size: var(--fs-lg); }
+  .exp__period { color: var(--fg-dim); font-size: var(--fs-sm); }
+  .exp__roles { list-style: none; display: grid; gap: var(--space-2); margin-top: var(--space-3); text-align: left; }
+  .exp__roles p { margin-top: 4px; }
+  .exp__rp, .exp__tags { color: var(--fg-dim); }
 </style>
-<script>
-  const track = document.querySelector<HTMLElement>(".exp__track");
-  track?.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight") { track.scrollBy({ left: 360, behavior: "smooth" }); e.preventDefault(); }
-    if (e.key === "ArrowLeft") { track.scrollBy({ left: -360, behavior: "smooth" }); e.preventDefault(); }
-  });
-</script>
