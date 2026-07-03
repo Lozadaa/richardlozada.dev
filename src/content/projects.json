@@ -1,14 +1,30 @@
 [
-  { "name": "vzla-info",
+  { "name": "TreeHealth",
     "description": { "en": "Humanitarian PWA for Venezuela: report yourself safe, find relatives, contribute information and locate aid.", "es": "PWA humanitaria para Venezuela: repórtate a salvo, encuentra a tus familiares, aporta información y ubica puntos de ayuda." },
-    "stack": ["Next.js", "Supabase", "Leaflet", "TypeScript"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/vzla-info" }], "featured": true },
+    "stack": ["Next.js", "Supabase", "Leaflet", "TypeScript"],
+    "links": [
+      { "label": "web →", "href": "https://vzla-info-r1lozadas-projects.vercel.app" },
+      { "label": "repo →", "href": "https://github.com/Lozadaa/vzla-info" }
+    ], "featured": true },
   { "name": "FlareRead",
     "description": { "en": "JustRead — a focused, distraction-free reading application.", "es": "JustRead — una app de lectura minimalista, pensada para leer sin distracciones." },
-    "stack": ["Electron", "React", "TypeScript"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/FlareRead" }], "featured": true },
+    "stack": ["Electron", "React", "TypeScript"],
+    "links": [
+      { "label": "releases →", "href": "https://github.com/Lozadaa/FlareRead/releases" },
+      { "label": "repo →", "href": "https://github.com/Lozadaa/FlareRead" }
+    ], "featured": true },
   { "name": "dexteria",
     "description": { "en": "AI Project Executor — an assistant that plans and runs project work, with a companion landing (dexteria-web).", "es": "AI Project Executor — un asistente de IA que planifica y ejecuta el trabajo de tus proyectos. Incluye su propia landing (dexteria-web)." },
-    "stack": ["TypeScript", "AI"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/dexteria" }], "featured": true },
+    "stack": ["TypeScript", "AI"],
+    "links": [
+      { "label": "web →", "href": "https://lifestepper.web.app" },
+      { "label": "repo →", "href": "https://github.com/Lozadaa/dexteria" }
+    ], "featured": true },
   { "name": "progressive-img-loader",
     "description": { "en": "Published open-source library that adds a blurred-thumbnail preloader to images.", "es": "Librería open-source que muestra una miniatura difuminada mientras cargan las imágenes." },
-    "stack": ["JavaScript", "OSS"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/progressive-img-loader" }], "featured": true }
+    "stack": ["JavaScript", "OSS"],
+    "links": [
+      { "label": "npm →", "href": "https://www.npmjs.com/package/progressive-img-loader" },
+      { "label": "repo →", "href": "https://github.com/Lozadaa/progressive-img-loader" }
+    ], "featured": true }
 ]
