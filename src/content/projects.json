@@ -1,6 +1,14 @@
 [
-  { "name": "dexteria", "description": "AI Project Executor — an assistant that plans and runs project work, with a companion landing (dexteria-web).", "stack": ["TypeScript", "AI"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/dexteria" }], "featured": true },
-  { "name": "vzla-info", "description": "Humanitarian PWA for Venezuela: report yourself safe, find relatives, contribute information and locate aid.", "stack": ["Next.js", "Supabase", "Leaflet", "TypeScript"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/vzla-info" }], "featured": true },
-  { "name": "FlareRead", "description": "JustRead — a focused, distraction-free reading application.", "stack": ["Electron", "React", "TypeScript"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/FlareRead" }], "featured": true },
-  { "name": "progressive-img-loader", "description": "Published open-source library that adds a blurred-thumbnail preloader to images.", "stack": ["JavaScript", "OSS"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/progressive-img-loader" }], "featured": true }
+  { "name": "dexteria",
+    "description": { "en": "AI Project Executor — an assistant that plans and runs project work, with a companion landing (dexteria-web).", "es": "AI Project Executor — un asistente que planifica y ejecuta trabajo de proyectos, con su landing (dexteria-web)." },
+    "stack": ["TypeScript", "AI"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/dexteria" }], "featured": true },
+  { "name": "vzla-info",
+    "description": { "en": "Humanitarian PWA for Venezuela: report yourself safe, find relatives, contribute information and locate aid.", "es": "PWA humanitaria para Venezuela: repórtate a salvo, encuentra familiares, aporta información y ubica ayuda." },
+    "stack": ["Next.js", "Supabase", "Leaflet", "TypeScript"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/vzla-info" }], "featured": true },
+  { "name": "FlareRead",
+    "description": { "en": "JustRead — a focused, distraction-free reading application.", "es": "JustRead — una aplicación de lectura enfocada y sin distracciones." },
+    "stack": ["Electron", "React", "TypeScript"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/FlareRead" }], "featured": true },
+  { "name": "progressive-img-loader",
+    "description": { "en": "Published open-source library that adds a blurred-thumbnail preloader to images.", "es": "Librería open-source publicada que agrega un preloader de miniatura difuminada a las imágenes." },
+    "stack": ["JavaScript", "OSS"], "links": [{ "label": "repo →", "href": "https://github.com/Lozadaa/progressive-img-loader" }], "featured": true }
 ]

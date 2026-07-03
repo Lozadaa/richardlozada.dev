@@ -1,49 +1,113 @@
 [
-  { "company": "Openbank (Grupo Santander)", "location": "Madrid, Spain · Hybrid", "period": "2023 — Present", "logo": "openbank",
+  { "company": "Openbank (Grupo Santander)",
+    "location": { "en": "Madrid, Spain · Hybrid", "es": "Madrid, España · Híbrido" },
+    "period": { "en": "2023 — Present", "es": "2023 — Presente" }, "logo": "openbank",
     "roles": [
-      { "title": "Technical Lead — Frontend", "period": "Jan 2024 — Present", "summary": "Leading the security vertical end-to-end, from the landing page to advanced user-security options. Mentoring the team toward precise decisions, confidence and a clean codebase that maximizes business value.", "tags": ["React", "TypeScript", "Leadership", "Security"] },
-      { "title": "Senior Frontend Engineer", "period": "Oct 2023 — Jan 2024", "summary": "Senior frontend engineering on Openbank's security module.", "tags": ["React", "TypeScript"] },
-      { "title": "Senior Frontend Engineer (via Entelgy)", "period": "Feb 2023 — Oct 2023", "summary": "OpenBank / Grupo Santander via Entelgy.", "tags": ["React", "TypeScript"] }
+      { "title": "Technical Lead — Frontend",
+        "period": { "en": "Jan 2024 — Present", "es": "Ene 2024 — Presente" },
+        "summary": { "en": "Leading the security vertical end-to-end, from the landing page to advanced user-security options. Mentoring the team toward precise decisions, confidence and a clean codebase that maximizes business value.", "es": "Liderando el vertical de seguridad de punta a punta, desde la landing hasta las opciones avanzadas de seguridad del usuario. Mentoreando al equipo hacia decisiones precisas, confianza y un código limpio que maximiza el valor de negocio." },
+        "tags": ["React", "TypeScript", "Leadership", "Security"] },
+      { "title": "Senior Frontend Engineer",
+        "period": { "en": "Oct 2023 — Jan 2024", "es": "Oct 2023 — Ene 2024" },
+        "summary": { "en": "Senior frontend engineering on Openbank's security module.", "es": "Ingeniería frontend senior en el módulo de seguridad de Openbank." },
+        "tags": ["React", "TypeScript"] },
+      { "title": "Senior Frontend Engineer (via Entelgy)",
+        "period": { "en": "Feb 2023 — Oct 2023", "es": "Feb 2023 — Oct 2023" },
+        "summary": { "en": "OpenBank / Grupo Santander via Entelgy.", "es": "OpenBank / Grupo Santander vía Entelgy." },
+        "tags": ["React", "TypeScript"] }
     ] },
-  { "company": "WiTI", "location": "Santiago, Chile", "period": "2022 — 2023", "logo": "witi",
+  { "company": "WiTI",
+    "location": { "en": "Santiago, Chile", "es": "Santiago, Chile" },
+    "period": { "en": "2022 — 2023", "es": "2022 — 2023" }, "logo": "witi",
     "roles": [
-      { "title": "Technical Lead", "period": "Aug 2022 — Mar 2023", "summary": "Technical leadership of the development team.", "tags": ["AWS", "Leadership"] },
-      { "title": "Senior Full Stack Developer (at Cencosud)", "period": "Jun 2022 — Mar 2023", "summary": "Senior full-stack development for Cencosud.", "tags": ["AWS", "Full-stack"] }
+      { "title": "Technical Lead",
+        "period": { "en": "Aug 2022 — Mar 2023", "es": "Ago 2022 — Mar 2023" },
+        "summary": { "en": "Technical leadership of the development team.", "es": "Liderazgo técnico del equipo de desarrollo." },
+        "tags": ["AWS", "Leadership"] },
+      { "title": "Senior Full Stack Developer (at Cencosud)",
+        "period": { "en": "Jun 2022 — Mar 2023", "es": "Jun 2022 — Mar 2023" },
+        "summary": { "en": "Senior full-stack development for Cencosud.", "es": "Desarrollo full-stack senior para Cencosud." },
+        "tags": ["AWS", "Full-stack"] }
     ] },
-  { "company": "Globant", "location": "Santiago, Chile", "period": "2021 — 2022", "logo": "globant",
+  { "company": "Globant",
+    "location": { "en": "Santiago, Chile", "es": "Santiago, Chile" },
+    "period": { "en": "2021 — 2022", "es": "2021 — 2022" }, "logo": "globant",
     "roles": [
-      { "title": "Software Developer — Web UI (Client: LATAM Airlines)", "period": "Aug 2021 — Jun 2022", "summary": "Built accessible, smooth experiences with React + Next.js for LATAM Airlines. Used a BFF to map backend services into exactly the APIs the frontend needed.", "tags": ["React", "Next.js", "BFF", "AWS", "Accessibility"] }
+      { "title": "Software Developer — Web UI (Client: LATAM Airlines)",
+        "period": { "en": "Aug 2021 — Jun 2022", "es": "Ago 2021 — Jun 2022" },
+        "summary": { "en": "Built accessible, smooth experiences with React + Next.js for LATAM Airlines. Used a BFF to map backend services into exactly the APIs the frontend needed.", "es": "Experiencias accesibles y fluidas con React + Next.js para LATAM Airlines. Con un BFF que mapeaba los servicios backend exactamente a las APIs que el frontend necesitaba." },
+        "tags": ["React", "Next.js", "BFF", "AWS", "Accessibility"] }
     ] },
-  { "company": "Nala", "location": "Santiago, Chile", "period": "2020 — 2021", "logo": "nala",
+  { "company": "Nala",
+    "location": { "en": "Santiago, Chile", "es": "Santiago, Chile" },
+    "period": { "en": "2020 — 2021", "es": "2020 — 2021" }, "logo": "nala",
     "roles": [
-      { "title": "Full Stack Software Developer", "period": "Jul 2020 — Jul 2021", "summary": "Defined and maintained cloud architecture on AWS; built REST APIs with Ruby on Rails and rich user experiences with React.", "tags": ["Ruby on Rails", "React", "AWS"] }
+      { "title": "Full Stack Software Developer",
+        "period": { "en": "Jul 2020 — Jul 2021", "es": "Jul 2020 — Jul 2021" },
+        "summary": { "en": "Defined and maintained cloud architecture on AWS; built REST APIs with Ruby on Rails and rich user experiences with React.", "es": "Definí y mantuve la arquitectura cloud en AWS; construí APIs REST con Ruby on Rails y experiencias de usuario ricas con React." },
+        "tags": ["Ruby on Rails", "React", "AWS"] }
     ] },
-  { "company": "TripleA Smart Solutions", "location": "Santiago, Chile", "period": "2020", "logo": "triplea",
+  { "company": "TripleA Smart Solutions",
+    "location": { "en": "Santiago, Chile", "es": "Santiago, Chile" },
+    "period": { "en": "2020", "es": "2020" }, "logo": "triplea",
     "roles": [
-      { "title": "Software Architect (R&D)", "period": "Jan 2020 — Aug 2020", "summary": "Owned the technology roadmap of the software factory. Built microservices, serverless and frontends (Angular, React) with Docker & Kubernetes for clients like Sodimac and Falabella. Led the dev team across Angular, React, Node.js and Spring.", "tags": ["Angular", "React", "Node.js", "Spring", "Docker", "Kubernetes"] }
+      { "title": "Software Architect (R&D)",
+        "period": { "en": "Jan 2020 — Aug 2020", "es": "Ene 2020 — Ago 2020" },
+        "summary": { "en": "Owned the technology roadmap of the software factory. Built microservices, serverless and frontends (Angular, React) with Docker & Kubernetes for clients like Sodimac and Falabella. Led the dev team across Angular, React, Node.js and Spring.", "es": "Responsable del roadmap tecnológico de la fábrica de software. Microservicios, serverless y frontends (Angular, React) con Docker y Kubernetes para clientes como Sodimac y Falabella. Lideré al equipo en Angular, React, Node.js y Spring." },
+        "tags": ["Angular", "React", "Node.js", "Spring", "Docker", "Kubernetes"] }
     ] },
-  { "company": "Streetrip SpA", "location": "Santiago, Chile", "period": "2019 — 2020", "logo": "streetrip",
+  { "company": "Streetrip SpA",
+    "location": { "en": "Santiago, Chile", "es": "Santiago, Chile" },
+    "period": { "en": "2019 — 2020", "es": "2019 — 2020" }, "logo": "streetrip",
     "roles": [
-      { "title": "Full-Stack Software Developer", "period": "Aug 2019 — Jan 2020", "summary": "Platform for business in movement, delivered on Android, iOS and Web using Kotlin, Java, Swift and Ruby on Rails.", "tags": ["Kotlin", "Java", "Swift", "Ruby on Rails"] }
+      { "title": "Full-Stack Software Developer",
+        "period": { "en": "Aug 2019 — Jan 2020", "es": "Ago 2019 — Ene 2020" },
+        "summary": { "en": "Platform for business in movement, delivered on Android, iOS and Web using Kotlin, Java, Swift and Ruby on Rails.", "es": "Plataforma para negocios en movimiento, entregada en Android, iOS y Web con Kotlin, Java, Swift y Ruby on Rails." },
+        "tags": ["Kotlin", "Java", "Swift", "Ruby on Rails"] }
     ] },
-  { "company": "Freelance — richardlozada.com", "location": "Remote", "period": "2019 — 2020", "logo": "freelance",
+  { "company": "Freelance — richardlozada.com",
+    "location": { "en": "Remote", "es": "Remoto" },
+    "period": { "en": "2019 — 2020", "es": "2019 — 2020" }, "logo": "freelance",
     "roles": [
-      { "title": "Full-Stack Software Developer", "period": "Jul 2019 — Jan 2020", "summary": "Consultancy and software development for micro and macro businesses: Java 8 / Spring Boot and Ruby on Rails backends, React and Angular frontends, and Kotlin / Swift / React Native mobile apps.", "tags": ["Java", "Spring Boot", "Ruby on Rails", "React", "React Native"] }
+      { "title": "Full-Stack Software Developer",
+        "period": { "en": "Jul 2019 — Jan 2020", "es": "Jul 2019 — Ene 2020" },
+        "summary": { "en": "Consultancy and software development for micro and macro businesses: Java 8 / Spring Boot and Ruby on Rails backends, React and Angular frontends, and Kotlin / Swift / React Native mobile apps.", "es": "Consultoría y desarrollo de software para micro y macro empresas: backends en Java 8 / Spring Boot y Ruby on Rails, frontends en React y Angular, y apps móviles en Kotlin / Swift / React Native." },
+        "tags": ["Java", "Spring Boot", "Ruby on Rails", "React", "React Native"] }
     ] },
-  { "company": "BBR SpA", "location": "Santiago, Chile", "period": "2017 — 2019", "logo": "bbr",
+  { "company": "BBR SpA",
+    "location": { "en": "Santiago, Chile", "es": "Santiago, Chile" },
+    "period": { "en": "2017 — 2019", "es": "2017 — 2019" }, "logo": "bbr",
     "roles": [
-      { "title": "Full-Stack Software Developer & Consultant", "period": "Dec 2017 — Jul 2019", "summary": "Full-stack solutions for a major Chilean retailer with Java EE and Vaadin across logistics, commercial and finance. Built EJB microservices exposed via web services, DB2/Postgres reporting, JMS with ActiveMQ and RoR APIs; deployed with OpenShift, Ansible, Sonar and Jenkins.", "tags": ["Java EE", "Vaadin", "Ruby on Rails", "ActiveMQ", "Jenkins"] }
+      { "title": "Full-Stack Software Developer & Consultant",
+        "period": { "en": "Dec 2017 — Jul 2019", "es": "Dic 2017 — Jul 2019" },
+        "summary": { "en": "Full-stack solutions for a major Chilean retailer with Java EE and Vaadin across logistics, commercial and finance. Built EJB microservices exposed via web services, DB2/Postgres reporting, JMS with ActiveMQ and RoR APIs; deployed with OpenShift, Ansible, Sonar and Jenkins.", "es": "Soluciones full-stack para un gran retailer chileno con Java EE y Vaadin en logística, comercial y finanzas. Microservicios EJB expuestos vía web services, reportería DB2/Postgres, JMS con ActiveMQ y APIs en RoR; desplegado con OpenShift, Ansible, Sonar y Jenkins." },
+        "tags": ["Java EE", "Vaadin", "Ruby on Rails", "ActiveMQ", "Jenkins"] }
     ] },
-  { "company": "Abstract Ltda", "location": "Santiago, Chile", "period": "2017", "logo": "abstract",
+  { "company": "Abstract Ltda",
+    "location": { "en": "Santiago, Chile", "es": "Santiago, Chile" },
+    "period": { "en": "2017", "es": "2017" }, "logo": "abstract",
     "roles": [
-      { "title": "Full-Stack Web & Android Developer", "period": "Feb 2017 — Dec 2017", "summary": "Innovative software solutions for Chilean clients: Android with Kotlin/Java, Ruby on Rails APIs and admin dashboards, and React Native apps for Android and iOS.", "tags": ["Android", "Kotlin", "Ruby on Rails", "React", "React Native"] }
+      { "title": "Full-Stack Web & Android Developer",
+        "period": { "en": "Feb 2017 — Dec 2017", "es": "Feb 2017 — Dic 2017" },
+        "summary": { "en": "Innovative software solutions for Chilean clients: Android with Kotlin/Java, Ruby on Rails APIs and admin dashboards, and React Native apps for Android and iOS.", "es": "Soluciones de software innovadoras para clientes chilenos: Android con Kotlin/Java, APIs y dashboards de administración en Ruby on Rails, y apps React Native para Android e iOS." },
+        "tags": ["Android", "Kotlin", "Ruby on Rails", "React", "React Native"] }
     ] },
-  { "company": "Sinergia Internacional", "location": "Colombia", "period": "2016 — 2017", "logo": "sinergia",
+  { "company": "Sinergia Internacional",
+    "location": { "en": "Colombia", "es": "Colombia" },
+    "period": { "en": "2016 — 2017", "es": "2016 — 2017" }, "logo": "sinergia",
     "roles": [
-      { "title": "Full-Stack Web Developer", "period": "Jun 2016 — Feb 2017", "summary": "Web software for maintenance, installation and back-office automation (Ruby on Rails) plus Android apps for client companies.", "tags": ["Ruby on Rails", "Android", "PHP"] }
+      { "title": "Full-Stack Web Developer",
+        "period": { "en": "Jun 2016 — Feb 2017", "es": "Jun 2016 — Feb 2017" },
+        "summary": { "en": "Web software for maintenance, installation and back-office automation (Ruby on Rails) plus Android apps for client companies.", "es": "Software web para mantenimiento, instalación y automatización de back-office (Ruby on Rails), además de apps Android para empresas cliente." },
+        "tags": ["Ruby on Rails", "Android", "PHP"] }
     ] },
-  { "company": "Fermat.org", "location": "Remote", "period": "2016", "logo": "fermat",
+  { "company": "Fermat.org",
+    "location": { "en": "Remote", "es": "Remoto" },
+    "period": { "en": "2016", "es": "2016" }, "logo": "fermat",
     "roles": [
-      { "title": "Android & Blockchain Developer", "period": "Jan 2016 — Jun 2016", "summary": "Fermat is a peer-to-peer economy framework running on smartphones. Designed and implemented low-level plugins: Token external API, P2P Jobs backend and Android, HTTPS/binary requests, async tasks, and the Fermat transaction & Linux installer.", "tags": ["Java", "Android", "Blockchain", "P2P"] }
+      { "title": "Android & Blockchain Developer",
+        "period": { "en": "Jan 2016 — Jun 2016", "es": "Ene 2016 — Jun 2016" },
+        "summary": { "en": "Fermat is a peer-to-peer economy framework running on smartphones. Designed and implemented low-level plugins: Token external API, P2P Jobs backend and Android, HTTPS/binary requests, async tasks, and the Fermat transaction & Linux installer.", "es": "Fermat es un framework de economía peer-to-peer que corre en smartphones. Diseñé e implementé plugins de bajo nivel: API externa de Token, backend y Android de P2P Jobs, requests HTTPS/binarios, tareas asíncronas, y la transacción Fermat e instalador Linux." },
+        "tags": ["Java", "Android", "Blockchain", "P2P"] }
     ] }
 ]

@@ -2,13 +2,16 @@
 import AsciiFace from "./ascii/AsciiFace.astro";
 import AsciiLink from "./ascii/AsciiLink.astro";
 import site from "../content/site.json";
+import { useT, pick, type Locale } from "../i18n/ui";
+const locale = (Astro.currentLocale ?? "en") as Locale;
+const t = useT(locale);
 ---
 <header class="hero container">
-  <AsciiFace label={`ASCII portrait of ${site.name}`} />
+  <AsciiFace label={t("hero.face-label")} />
   <div class="hero__meta">
     <h1>{site.name}</h1>
-    <p class="hero__tagline">{site.tagline}</p>
-    <nav class="hero__links" aria-label="Quick links">
+    <p class="hero__tagline">{pick(site.tagline, locale)}</p>
+    <nav class="hero__links" aria-label={t("hero.links")}>
       {site.contacts.map((c) => <AsciiLink href={c.href} label={c.label} />)}
     </nav>
   </div>

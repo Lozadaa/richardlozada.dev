@@ -1,16 +1,18 @@
 ---
 import experience from "../content/experience.json";
 import logosRaw from "../content/logos.json";
+import { useT, pick, type Locale } from "../i18n/ui";
+const locale = (Astro.currentLocale ?? "en") as Locale;
+const t = useT(locale);
 const logos = logosRaw as Record<string, string[]>;
 const cols = (key: string) => Math.max(...logos[key].map((l) => l.length));
 ---
 <section class="container exp" aria-labelledby="exp-h">
   <div class="exp__head">
-    <h2 id="exp-h">Experience</h2>
-    <span class="exp__info" tabindex="0" role="note"
-      aria-label="About the marks: each emblem is either the company's real logo in ASCII, or a unique sigil generated from the company name.">
+    <h2 id="exp-h">{t("exp.heading")}</h2>
+    <span class="exp__info" tabindex="0" role="note" aria-label={t("exp.tooltip-label")}>
       <span class="exp__i" aria-hidden="true">&#9432;</span>
-      <span class="exp__tip" role="tooltip">Each mark is either the company&rsquo;s real logo rendered in ASCII, or &mdash; where no logo was available &mdash; a unique &ldquo;sigil&rdquo; generated deterministically from the company&rsquo;s name. Same name, same emblem, every time.</span>
+      <span class="exp__tip" role="tooltip">{t("exp.tooltip")}</span>
     </span>
   </div>
   <ol class="exp__log">
@@ -24,9 +26,9 @@ const cols = (key: string) => Math.max(...logos[key].map((l) => l.length));
             </span>
             <span class="exp__meta">
               <span class="exp__co">{e.company}</span>
-              <span class="exp__period">{e.period} · {e.location}</span>
+              <span class="exp__period">{pick(e.period, locale)} · {pick(e.location, locale)}</span>
               <span class="exp__lead">{e.roles[0].title}</span>
-              <span class="exp__toggle"><span class="exp__sign" aria-hidden="true"></span>{e.roles.length} {e.roles.length === 1 ? "role" : "roles"}</span>
+              <span class="exp__toggle"><span class="exp__sign" aria-hidden="true"></span>{e.roles.length} {e.roles.length === 1 ? t("exp.role") : t("exp.roles")}</span>
             </span>
           </summary>
           <ol class="exp__roles">
@@ -34,8 +36,8 @@ const cols = (key: string) => Math.max(...logos[key].map((l) => l.length));
               <li>
                 <span class="exp__branch" aria-hidden="true">{j === e.roles.length - 1 ? "└─" : "├─"}</span>
                 <div class="exp__role">
-                  <strong>{r.title}</strong><span class="exp__rp"> · {r.period}</span>
-                  <p>{r.summary}</p>
+                  <strong>{r.title}</strong><span class="exp__rp"> · {pick(r.period, locale)}</span>
+                  <p>{pick(r.summary, locale)}</p>
                   <p class="exp__tags">{r.tags.map((t) => <span class="exp__tag">{t}</span>)}</p>
                 </div>
               </li>
