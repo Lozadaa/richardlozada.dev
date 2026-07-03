@@ -1,0 +1,14 @@
+---
+interface Props { label: string }
+const { label } = Astro.props;
+---
+<canvas class="ascii-face" role="img" aria-label={label}></canvas>
+<script>
+  import { mountAsciiFace } from "../../lib/ascii/renderer";
+  const el = document.querySelector<HTMLCanvasElement>(".ascii-face");
+  if (el) mountAsciiFace(el);
+</script>
+<style>
+  .ascii-face { display: block; width: 100%; max-width: 620px; height: auto; image-rendering: pixelated; background: #000; }
+  @media (pointer: coarse) { .ascii-face { cursor: default; } }
+</style>
