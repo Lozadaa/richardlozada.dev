@@ -1,4 +1,11 @@
 [
+  { "name": "SkillSmith",
+    "description": { "en": "Create, analyze and improve Claude Agent Skills.", "es": "Crea, analiza y mejora Claude Agent Skills." },
+    "stack": ["Next.js", "TypeScript", "Tailwind"],
+    "links": [
+      { "label": "web →", "href": "https://skillsmith.richardlozada.dev" },
+      { "label": "repo →", "href": "https://github.com/Lozadaa/skillsmith" }
+    ], "featured": true },
   { "name": "JuegaMundial",
     "description": { "en": "A collection of World Cup games spanning 1930 to 2026: trivia quiz, La Incógnita Mundialera, La Conexión and ¿Quién es?", "es": "Colección de juegos sobre los Mundiales de 1930 a 2026: quiz de trivia, La Incógnita Mundialera, La Conexión y ¿Quién es?" },
     "stack": ["Next.js", "TypeScript", "Tailwind"],
@@ -31,12 +38,5 @@
     "links": [
       { "label": "web →", "href": "https://dexteriapp.com" },
       { "label": "repo →", "href": "https://github.com/Lozadaa/dexteria" }
-    ], "featured": true },
-  { "name": "SkillSmith",
-    "description": { "en": "Create, analyze and improve Claude Agent Skills.", "es": "Crea, analiza y mejora Claude Agent Skills." },
-    "stack": ["Next.js", "TypeScript", "Tailwind"],
-    "links": [
-      { "label": "web →", "href": "https://skillsmith.richardlozada.dev" },
-      { "label": "repo →", "href": "https://github.com/Lozadaa/skillsmith" }
     ], "featured": true }
 ]
