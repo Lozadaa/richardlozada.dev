@@ -2,9 +2,11 @@
 ---
 <canvas class="ascii-bg" aria-hidden="true"></canvas>
 <script>
-  // Each glyph drifts sideways (dx: the star of the motion) with a gentle vertical
-  // sway (sine of phase/freq/amp) so the field feels alive without a rigid scroll.
-  interface G { x: number; y: number; vx: number; vy: number; dx: number; ch: string; a: number; phase: number; freq: number; amp: number }
+  // Two layers of motion, kept separate:
+  //  • baseline (bx,by): a slow sideways drift + gentle vertical sway — the ambient life
+  //  • offset  (ox,oy): the interactive displacement — the cursor SHOVES glyphs hard,
+  //    then a soft spring (K) eases them back slowly, so the push is felt and lingers.
+  interface G { bx: number; by: number; ox: number; oy: number; vx: number; vy: number; dx: number; ch: string; a: number; phase: number; freq: number; amp: number }
   const cv = document.querySelector<HTMLCanvasElement>(".ascii-bg");
   if (cv) {
     const ctx = cv.getContext("2d")!;
@@ -16,34 +18,40 @@
       H = cv!.height = window.innerHeight;
       const count = Math.min(240, Math.floor((W * H) / 9000));
       glyphs = Array.from({ length: count }, (): G => ({
-        x: Math.random() * W, y: Math.random() * H, vx: 0, vy: 0,
-        // sideways drift: mixed direction, varied speed → a slow horizontal current
-        dx: (Math.random() < 0.5 ? -1 : 1) * (0.14 + Math.random() * 0.26),
+        bx: Math.random() * W, by: Math.random() * H, ox: 0, oy: 0, vx: 0, vy: 0,
+        // sideways drift: mixed direction, varied speed → a very slow horizontal current
+        dx: (Math.random() < 0.5 ? -1 : 1) * (0.04 + Math.random() * 0.09),
         ch: SYMS[Math.floor(Math.random() * SYMS.length)],
         a: 0.03 + Math.random() * 0.05,
         phase: Math.random() * Math.PI * 2,
-        freq: 0.008 + Math.random() * 0.016,
-        amp: 0.1 + Math.random() * 0.2,
+        freq: 0.006 + Math.random() * 0.012,
+        amp: 0.05 + Math.random() * 0.11,
       }));
     }
     function paint(move: boolean) {
       ctx.clearRect(0, 0, W, H);
       ctx.font = "13px monospace"; ctx.textBaseline = "top";
-      const R = 120;
+      const R = 150;      // cursor influence radius
+      const PUSH = 2.6;   // how hard the cursor shoves — the "empuje"
+      const K = 0.01;     // spring stiffness — lower = slower return
+      const DAMP = 0.9;   // velocity damping — settles without bouncing
       if (move) t += 1;
       for (const g of glyphs) {
         if (move) {
-          // pointer repel — glyphs push away when the cursor passes near
-          const ddx = g.x - mx, ddy = g.y - my, d = Math.hypot(ddx, ddy);
-          if (d < R && d > 0.01) { const f = (1 - d / R) * 0.5; g.vx += (ddx / d) * f; g.vy += (ddy / d) * f; }
-          g.vx *= 0.92; g.vy *= 0.92;
-          const sway = Math.sin(t * g.freq + g.phase) * g.amp;
-          g.x += g.vx + g.dx; g.y += g.vy + sway;
-          if (g.x < -10) g.x = W + 10; if (g.x > W + 10) g.x = -10;
-          if (g.y < -10) g.y = H + 10; if (g.y > H + 10) g.y = -10;
+          // ambient baseline: horizontal drift (wraps) + vertical sway
+          g.bx += g.dx; if (g.bx < -10) g.bx = W + 10; if (g.bx > W + 10) g.bx = -10;
+          g.by += Math.sin(t * g.freq + g.phase) * g.amp;
+          if (g.by < -10) g.by = H + 10; if (g.by > H + 10) g.by = -10;
+          // interactive offset: strong repel from the cursor, soft spring back to baseline
+          const px = g.bx + g.ox, py = g.by + g.oy;
+          const ddx = px - mx, ddy = py - my, d = Math.hypot(ddx, ddy);
+          if (d < R && d > 0.01) { const f = (1 - d / R) * PUSH; g.vx += (ddx / d) * f; g.vy += (ddy / d) * f; }
+          g.vx += -g.ox * K; g.vy += -g.oy * K;
+          g.vx *= DAMP; g.vy *= DAMP;
+          g.ox += g.vx; g.oy += g.vy;
         }
         ctx.fillStyle = `rgba(230,230,230,${g.a})`;
-        ctx.fillText(g.ch, g.x, g.y);
+        ctx.fillText(g.ch, g.bx + g.ox, g.by + g.oy);
       }
     }
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
