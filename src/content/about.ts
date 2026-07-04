@@ -27,12 +27,12 @@ export const certifications: Certification[] = [
 export const aboutParagraphs: Record<Locale, string[]> = {
   en: [
     "I'm Richard Lozada, a self-taught full-stack software engineer. I've spent close to a decade building products for web, mobile and the cloud, and teams that build them well.",
-    "Today I'm a Technical Lead at Openbank (Grupo Santander), where I lead the security vertical's frontend end-to-end, from architecture and code to mentoring the team. I build products like the login and security-settings frontends, packaged into a reusable library that multiple banks ship. Getting here meant building for brands like LATAM Airlines, Cencosud and Falabella.",
+    "Today I'm a Technical Lead at Openbank (Grupo Santander), where I lead the security vertical's frontend end-to-end, from architecture and code to mentoring the team. I build products like the login and security-settings frontends, packaged into a reusable internal library that powers multiple banks. Getting here meant building for brands like LATAM Airlines, Cencosud and Falabella.",
     "Outside the office I keep shipping: TreeHealth, Vzla Terremoto Info, FlareRead, dexteria. I like building products that help people in their day-to-day, and that goes way back: at 17, before my career even started, I co-built “Abastece Combustible”, a gas-station availability app used by over 10,000 people. It made press and TV:",
   ],
   es: [
     "Soy Richard Lozada, ingeniero de software full-stack y autodidacta. Llevo cerca de una década construyendo productos web, móviles y en la nube, y equipos que los construyen bien.",
-    "Hoy soy Technical Lead en Openbank (Grupo Santander), donde lidero el frontend del vertical de seguridad de punta a punta, desde la arquitectura y el código hasta el mentoring del equipo. Construyo productos como el frontal de login y el de ajustes de seguridad, encapsulados en una librería reutilizable por múltiples bancos. Llegar hasta aquí significó construir para marcas como LATAM Airlines, Cencosud y Falabella.",
+    "Hoy soy Technical Lead en Openbank (Grupo Santander), donde lidero el frontend del vertical de seguridad de punta a punta, desde la arquitectura y el código hasta el mentoring del equipo. Construyo productos como el frontal de login y el de ajustes de seguridad, encapsulados en una librería interna reutilizable que da servicio a múltiples bancos. Llegar hasta aquí significó construir para marcas como LATAM Airlines, Cencosud y Falabella.",
     "Fuera de la oficina sigo construyendo: TreeHealth, Vzla Terremoto Info, FlareRead, dexteria. Me gusta crear productos que ayuden a las personas en el día a día, y eso viene de lejos: a los 17, antes de empezar mi carrera, creé junto a un amigo «Abastece Combustible», una app de disponibilidad de gasolineras que usaron más de 10.000 personas. Salió en prensa y TV:",
   ],
 };
