@@ -5,6 +5,12 @@
     "links": [
       { "label": "web →", "href": "https://juegamundial.xyz" }
     ], "featured": true },
+  { "name": "SkillSmith",
+    "description": { "en": "Create, analyze and improve Claude Agent Skills.", "es": "Crea, analiza y mejora Claude Agent Skills." },
+    "stack": ["Next.js", "TypeScript", "Tailwind"],
+    "links": [
+      { "label": "web →", "href": "https://skillsmith.richardlozada.dev" }
+    ], "featured": true },
   { "name": "TreeHealth",
     "description": { "en": "Collaborative family health map: build your family tree, record relatives' medical history and surface hereditary risk patterns worth discussing with a doctor.", "es": "Mapa colaborativo de salud familiar: construye tu árbol genealógico, registra el historial médico de tus familiares y descubre patrones de riesgo hereditario que vale la pena conversar con un médico." },
     "stack": ["React", "TypeScript", "Ruby on Rails", "Tailwind"],
