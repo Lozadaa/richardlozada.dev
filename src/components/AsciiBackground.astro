@@ -13,6 +13,9 @@
     const SYMS = "01<>/\\{}[]()=+*#.:~^|".split("");
     let W = 0, H = 0, glyphs: G[] = [], t = 0;
     let mx = -9999, my = -9999;
+    // minimal orange cursor trail — recent pointer positions that fade out
+    let trail: { x: number; y: number; life: number }[] = [];
+    let ltx = -9999, lty = -9999;
     function build() {
       W = cv!.width = window.innerWidth;
       H = cv!.height = window.innerHeight;
@@ -31,7 +34,7 @@
     function paint(move: boolean) {
       ctx.clearRect(0, 0, W, H);
       ctx.font = "13px monospace"; ctx.textBaseline = "top";
-      const R = 150;      // cursor influence radius
+      const R = 75;       // cursor influence radius — tight/local, like the ASCII face
       const PUSH = 2.6;   // how hard the cursor shoves — the "empuje"
       const K = 0.01;     // spring stiffness — lower = slower return
       const DAMP = 0.9;   // velocity damping — settles without bouncing
@@ -53,6 +56,16 @@
         ctx.fillStyle = `rgba(230,230,230,${g.a})`;
         ctx.fillText(g.ch, g.bx + g.ox, g.by + g.oy);
       }
+      // minimal orange trail: small accent dots fading behind the cursor
+      if (move) {
+        for (let i = trail.length - 1; i >= 0; i--) {
+          const p = trail[i];
+          p.life -= 0.06;
+          if (p.life <= 0) { trail.splice(i, 1); continue; }
+          ctx.fillStyle = `rgba(255,122,24,${p.life * 0.2})`;
+          ctx.beginPath(); ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2); ctx.fill();
+        }
+      }
     }
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     build();
@@ -64,7 +77,13 @@
       const loop = () => { paint(true); raf = requestAnimationFrame(loop); };
       const start = () => { if (!running && !document.hidden) { running = true; loop(); } };
       const stop = () => { running = false; cancelAnimationFrame(raf); };
-      window.addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; });
+      window.addEventListener("pointermove", (e) => {
+        mx = e.clientX; my = e.clientY;
+        if (Math.hypot(mx - ltx, my - lty) > 7) {
+          trail.push({ x: mx, y: my, life: 1 }); ltx = mx; lty = my;
+          if (trail.length > 40) trail.shift();
+        }
+      });
       document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
       start();
     }
