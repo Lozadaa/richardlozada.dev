@@ -2,20 +2,21 @@
 ---
 <canvas class="ascii-bg" aria-hidden="true"></canvas>
 <script>
-  // Two layers of motion, kept separate:
-  //  • baseline (bx,by): a slow sideways drift + gentle vertical sway — the ambient life
-  //  • offset  (ox,oy): the interactive displacement — the cursor SHOVES glyphs hard,
-  //    then a soft spring (K) eases them back slowly, so the push is felt and lingers.
-  interface G { bx: number; by: number; ox: number; oy: number; vx: number; vy: number; dx: number; ch: string; a: number; phase: number; freq: number; amp: number }
+  // Ambient ASCII field. Two behaviours layered on each glyph:
+  //  • motion — a slow sideways drift + gentle sway (baseline), plus a strong
+  //    cursor shove that a soft spring eases back (offset).
+  //  • heat   — glyphs the cursor passes near light up orange and cool back to
+  //    grey, so the "trail" IS the typography, not a separate shape.
+  interface G {
+    bx: number; by: number; ox: number; oy: number; vx: number; vy: number;
+    dx: number; ch: string; a: number; phase: number; freq: number; amp: number; heat: number;
+  }
   const cv = document.querySelector<HTMLCanvasElement>(".ascii-bg");
   if (cv) {
     const ctx = cv.getContext("2d")!;
     const SYMS = "01<>/\\{}[]()=+*#.:~^|".split("");
     let W = 0, H = 0, glyphs: G[] = [], t = 0;
     let mx = -9999, my = -9999;
-    // minimal orange cursor trail — recent pointer positions that fade out
-    let trail: { x: number; y: number; life: number }[] = [];
-    let ltx = -9999, lty = -9999;
     function build() {
       W = cv!.width = window.innerWidth;
       H = cv!.height = window.innerHeight;
@@ -29,12 +30,14 @@
         phase: Math.random() * Math.PI * 2,
         freq: 0.006 + Math.random() * 0.012,
         amp: 0.05 + Math.random() * 0.11,
+        heat: 0,
       }));
     }
     function paint(move: boolean) {
       ctx.clearRect(0, 0, W, H);
       ctx.font = "13px monospace"; ctx.textBaseline = "top";
-      const R = 75;       // cursor influence radius — tight/local, like the ASCII face
+      const R = 75;       // cursor shove radius — tight/local, like the ASCII face
+      const GLOW = 90;    // cursor heat radius — the orange wake through the glyphs
       const PUSH = 2.6;   // how hard the cursor shoves — the "empuje"
       const K = 0.01;     // spring stiffness — lower = slower return
       const DAMP = 0.9;   // velocity damping — settles without bouncing
@@ -45,26 +48,21 @@
           g.bx += g.dx; if (g.bx < -10) g.bx = W + 10; if (g.bx > W + 10) g.bx = -10;
           g.by += Math.sin(t * g.freq + g.phase) * g.amp;
           if (g.by < -10) g.by = H + 10; if (g.by > H + 10) g.by = -10;
-          // interactive offset: strong repel from the cursor, soft spring back to baseline
+          // cursor interaction: shove (offset) + heat (colour)
           const px = g.bx + g.ox, py = g.by + g.oy;
           const ddx = px - mx, ddy = py - my, d = Math.hypot(ddx, ddy);
           if (d < R && d > 0.01) { const f = (1 - d / R) * PUSH; g.vx += (ddx / d) * f; g.vy += (ddy / d) * f; }
+          if (d < GLOW) g.heat = Math.max(g.heat, 1 - d / GLOW);
+          g.heat *= 0.94; // cool back to grey; higher = longer orange wake
           g.vx += -g.ox * K; g.vy += -g.oy * K;
           g.vx *= DAMP; g.vy *= DAMP;
           g.ox += g.vx; g.oy += g.vy;
         }
-        ctx.fillStyle = `rgba(230,230,230,${g.a})`;
+        // colour: lerp grey → orange (#ff7a18) and brighten by heat
+        const h = g.heat;
+        const rr = (230 + 25 * h) | 0, gg = (230 - 108 * h) | 0, bb = (230 - 206 * h) | 0;
+        ctx.fillStyle = `rgba(${rr},${gg},${bb},${g.a + (0.6 - g.a) * h})`;
         ctx.fillText(g.ch, g.bx + g.ox, g.by + g.oy);
-      }
-      // minimal orange trail: small accent dots fading behind the cursor
-      if (move) {
-        for (let i = trail.length - 1; i >= 0; i--) {
-          const p = trail[i];
-          p.life -= 0.03;
-          if (p.life <= 0) { trail.splice(i, 1); continue; }
-          ctx.fillStyle = `rgba(255,122,24,${p.life * 0.4})`;
-          ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI * 2); ctx.fill();
-        }
       }
     }
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -77,13 +75,7 @@
       const loop = () => { paint(true); raf = requestAnimationFrame(loop); };
       const start = () => { if (!running && !document.hidden) { running = true; loop(); } };
       const stop = () => { running = false; cancelAnimationFrame(raf); };
-      window.addEventListener("pointermove", (e) => {
-        mx = e.clientX; my = e.clientY;
-        if (Math.hypot(mx - ltx, my - lty) > 7) {
-          trail.push({ x: mx, y: my, life: 1 }); ltx = mx; lty = my;
-          if (trail.length > 40) trail.shift();
-        }
-      });
+      window.addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; });
       document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
       start();
     }
