@@ -1,0 +1,22 @@
+---
+interface Props { slug: string; label: string }
+const { slug, label } = Astro.props;
+---
+<canvas class="ascii-project" data-slug={slug} role="img" aria-label={label}></canvas>
+<script>
+  import { mountAscii } from "../../lib/ascii/renderer";
+  import { projectsData } from "../../lib/ascii/projects-data";
+  document.querySelectorAll<HTMLCanvasElement>("canvas.ascii-project").forEach((el) => {
+    const slug = el.dataset.slug;
+    const data = slug ? projectsData[slug] : undefined;
+    if (data) mountAscii(el, data);
+    else el.remove();
+  });
+</script>
+<style>
+  .ascii-project {
+    display: block; width: 100%; height: auto; max-height: 200px;
+    image-rendering: pixelated; background: #000; border: 1px solid var(--fg-dim);
+  }
+  @media (pointer: coarse) { .ascii-project { cursor: default; } }
+</style>
