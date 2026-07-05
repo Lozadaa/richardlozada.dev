@@ -7,15 +7,17 @@
 // cache (populated by `npx playwright install chromium`), then system Chrome, then Edge.
 // If none is found it exits with a clear message. Requires Python + Pillow for gen-ascii.py.
 import { chromium } from "playwright-core";
-import { readFileSync, writeFileSync, mkdtempSync, rmSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdtempSync, rmSync, mkdirSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, dirname } from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { slugify } from "../src/lib/ascii/slug.js";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
-const OUT = join(ROOT, "src/lib/ascii/projects-data.json");
+// Served as a static asset (fetched at runtime), NOT bundled into JS — keeps the
+// ~0.5MB of ASCII data out of the client bundle so it doesn't hurt bootup/TBT.
+const OUT = join(ROOT, "public/ascii/projects-data.json");
 const WIDTH = 240; // high detail; ambient is fps-capped so multiple canvases stay affordable
 const FACTOR = "0.625"; // = cellW/cellH, so the ASCII matches the source aspect (no stretch)
 const VIEWPORT = { width: 1280, height: 800 };
@@ -74,6 +76,7 @@ for (const p of projects.filter((x) => x.featured)) {
 
 await browser.close();
 rmSync(tmp, { recursive: true, force: true });
+mkdirSync(dirname(OUT), { recursive: true });
 writeFileSync(OUT, JSON.stringify(out) + "\n");
 
 console.log("\n=== gen:projects ===");

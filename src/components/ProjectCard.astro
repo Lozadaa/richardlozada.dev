@@ -1,10 +1,8 @@
 ---
 import AsciiLink from "./ascii/AsciiLink.astro";
 import AsciiProject from "./ascii/AsciiProject.astro";
-import { projectsData } from "../lib/ascii/projects-data";
-interface Props { name: string; slug: string; description: string; stack: string[]; links: { label: string; href: string }[] }
-const { name, slug, description, stack, links } = Astro.props;
-const hasAscii = Boolean(projectsData[slug]);
+interface Props { name: string; slug: string; hasAscii: boolean; description: string; stack: string[]; links: { label: string; href: string }[] }
+const { name, slug, hasAscii, description, stack, links } = Astro.props;
 ---
 <article class="pc">
   {hasAscii && <AsciiProject slug={slug} label={`${name} preview`} />}

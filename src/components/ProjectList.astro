@@ -3,13 +3,23 @@ import ProjectCard from "./ProjectCard.astro";
 import projects from "../content/projects.json";
 import { slugify } from "../lib/ascii/slug.js";
 import { useT, pick, type Locale } from "../i18n/ui";
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 const locale = (Astro.currentLocale ?? "en") as Locale;
 const t = useT(locale);
 const featured = projects.filter((p) => p.featured);
+
+// Build-time: which projects have generated ASCII data (served as a static asset,
+// fetched at runtime). Read here only to reserve the thumbnail box in HTML.
+let asciiSlugs = new Set<string>();
+try {
+  const path = fileURLToPath(new URL("../../public/ascii/projects-data.json", import.meta.url));
+  asciiSlugs = new Set(Object.keys(JSON.parse(readFileSync(path, "utf8"))));
+} catch { /* not generated yet — cards render text-only */ }
 ---
 <section class="container proj" aria-labelledby="proj-h">
   <h2 id="proj-h">{t("proj.heading")}</h2>
-  <div class="proj__grid" data-reveal>{featured.map((p) => <ProjectCard name={p.name} slug={slugify(p.name)} description={pick(p.description, locale)} stack={p.stack} links={p.links} />)}</div>
+  <div class="proj__grid" data-reveal>{featured.map((p) => <ProjectCard name={p.name} slug={slugify(p.name)} hasAscii={asciiSlugs.has(slugify(p.name))} description={pick(p.description, locale)} stack={p.stack} links={p.links} />)}</div>
 </section>
 <style>
   .proj { padding-block: var(--space-8); }

@@ -4,6 +4,8 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://richardlozada.dev",
   output: "static",
+  // Emit source maps so Lighthouse's "valid-source-maps" passes for first-party JS.
+  vite: { build: { sourcemap: true } },
   i18n: {
     defaultLocale: "en",
     locales: ["en", "es"],

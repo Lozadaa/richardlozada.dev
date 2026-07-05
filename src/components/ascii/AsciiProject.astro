@@ -5,21 +5,34 @@ const { slug, label } = Astro.props;
 <canvas class="ascii-project" data-slug={slug} role="img" aria-label={label}></canvas>
 <script>
   import { mountAscii } from "../../lib/ascii/renderer";
-  import { projectsData } from "../../lib/ascii/projects-data";
-  document.querySelectorAll<HTMLCanvasElement>("canvas.ascii-project").forEach((el) => {
-    const slug = el.dataset.slug;
-    const data = slug ? projectsData[slug] : undefined;
-    // `wave` = cheap ambient ripple over a pre-rendered static buffer, so high detail
-    // costs nothing per frame and every thumbnail can drift at once. ambient:false keeps
-    // the physics field idle (it only drives the push on hover). fps caps the ripple.
-    if (data) mountAscii(el, data, { wave: true, fps: 30, ambient: false });
-    else el.remove();
-  });
+
+  // Fetch the ASCII data once (static asset, not bundled — keeps it off the JS budget).
+  let dataPromise: Promise<Record<string, any>> | null = null;
+  const getData = () => (dataPromise ??= fetch("/ascii/projects-data.json").then((r) => r.json()).catch(() => ({})));
+
+  const idle = (fn: () => void) =>
+    "requestIdleCallback" in window ? (window as any).requestIdleCallback(fn, { timeout: 600 }) : setTimeout(fn, 0);
+
+  // Only mount a thumbnail once it nears the viewport, and do the heavy first render
+  // during idle time — so off-screen cards cost nothing at load (better TBT/bootup).
+  const io = new IntersectionObserver((entries, obs) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      const el = e.target as HTMLCanvasElement;
+      obs.unobserve(el);
+      getData().then((data) => {
+        const d = el.dataset.slug ? data[el.dataset.slug] : undefined;
+        if (d) idle(() => mountAscii(el, d, { wave: true, fps: 30, ambient: false }));
+        else el.remove();
+      });
+    }
+  }, { rootMargin: "200px" });
+
+  document.querySelectorAll<HTMLCanvasElement>("canvas.ascii-project").forEach((el) => io.observe(el));
 </script>
 <style>
   /* Fixed 16:9 banner. object-fit:cover scales the canvas uniformly (never stretched)
-     and object-position:center crops overflow from the edges — "show the center,
-     crop what doesn't fit". */
+     and object-position:center crops overflow from the edges. */
   .ascii-project {
     display: block; width: 100%; aspect-ratio: 16 / 9;
     object-fit: cover; object-position: center;
