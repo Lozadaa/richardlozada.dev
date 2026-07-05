@@ -4,10 +4,12 @@ export interface PushConfig {
   radius: number; force: number; spring: number; friction: number; cellW: number; cellH: number;
   /** ambient wobble so the face feels alive without pointer input */
   idleAmp: number; idleSpeed: number;
+  /** when false, no idle drift or random twitches — the field is still until pushed */
+  ambient: boolean;
 }
 export const DEFAULT_CONFIG: PushConfig = {
   radius: 38, force: 0.8, spring: 0.05, friction: 0.8, cellW: 5, cellH: 8,
-  idleAmp: 0.035, idleSpeed: 1.4,
+  idleAmp: 0.035, idleSpeed: 1.4, ambient: true,
 };
 
 export class PushField {
@@ -43,7 +45,7 @@ export class PushField {
   offsetY(i: number): number { return this.oy[i]; }
 
   step(t = 0): void {
-    const { radius, force, spring, friction, cellW, cellH, idleAmp, idleSpeed } = this.cfg;
+    const { radius, force, spring, friction, cellW, cellH, idleAmp, idleSpeed, ambient } = this.cfg;
     const it = t * idleSpeed;
     for (let y = 0; y < this.face.h; y++) {
       for (let x = 0; x < this.face.w; x++) {
@@ -56,16 +58,18 @@ export class PushField {
           this.vx[i] += (dx / d) * f; this.vy[i] += (dy / d) * f;
         }
         // ambient drift: loose waves + per-cell random phase/frequency/amplitude
-        const a = idleAmp * this.am[i];
-        this.vx[i] += Math.sin(it * this.fq[i] + x * 0.11 + this.ph[i]) * a;
-        this.vy[i] += Math.cos(it * this.fq[i] * 0.83 + y * 0.13 + this.ph[i]) * a;
+        if (ambient) {
+          const a = idleAmp * this.am[i];
+          this.vx[i] += Math.sin(it * this.fq[i] + x * 0.11 + this.ph[i]) * a;
+          this.vy[i] += Math.cos(it * this.fq[i] * 0.83 + y * 0.13 + this.ph[i]) * a;
+        }
         this.vx[i] += -spring * this.ox[i]; this.vy[i] += -spring * this.oy[i];
         this.vx[i] *= friction; this.vy[i] *= friction;
         this.ox[i] += this.vx[i]; this.oy[i] += this.vy[i];
       }
     }
     // random twitches: brief impulses on a small cluster, like tics of life
-    if (Math.random() < 0.012) {
+    if (ambient && Math.random() < 0.012) {
       const tx = (Math.random() * this.face.w) | 0, ty = (Math.random() * this.face.h) | 0;
       const ang = Math.random() * Math.PI * 2, kick = 0.4 + Math.random() * 0.7;
       for (let dy2 = -2; dy2 <= 2; dy2++) {

@@ -9,7 +9,9 @@ const { slug, label } = Astro.props;
   document.querySelectorAll<HTMLCanvasElement>("canvas.ascii-project").forEach((el) => {
     const slug = el.dataset.slug;
     const data = slug ? projectsData[slug] : undefined;
-    if (data) mountAscii(el, data);
+    // ambient:false + interactiveOnly → crisp static thumbnail that animates the push
+    // only on hover, so many high-resolution canvases stay performant.
+    if (data) mountAscii(el, data, { ambient: false, interactiveOnly: true });
     else el.remove();
   });
 </script>
