@@ -9,9 +9,10 @@ const { slug, label } = Astro.props;
   document.querySelectorAll<HTMLCanvasElement>("canvas.ascii-project").forEach((el) => {
     const slug = el.dataset.slug;
     const data = slug ? projectsData[slug] : undefined;
-    // ambient:false + interactiveOnly → crisp static thumbnail that animates the push
-    // only on hover, so many high-resolution canvases stay performant.
-    if (data) mountAscii(el, data, { ambient: false, interactiveOnly: true });
+    // `wave` = cheap ambient ripple over a pre-rendered static buffer, so high detail
+    // costs nothing per frame and every thumbnail can drift at once. ambient:false keeps
+    // the physics field idle (it only drives the push on hover). fps caps the ripple.
+    if (data) mountAscii(el, data, { wave: true, fps: 30, ambient: false });
     else el.remove();
   });
 </script>

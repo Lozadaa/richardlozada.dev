@@ -16,7 +16,7 @@ import { slugify } from "../src/lib/ascii/slug.js";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const OUT = join(ROOT, "src/lib/ascii/projects-data.json");
-const WIDTH = 200; // high detail — project thumbnails only animate on hover, so this stays cheap
+const WIDTH = 240; // high detail; ambient is fps-capped so multiple canvases stay affordable
 const FACTOR = "0.625"; // = cellW/cellH, so the ASCII matches the source aspect (no stretch)
 const VIEWPORT = { width: 1280, height: 800 };
 // centered 16:9 band of the above-the-fold — "show the center, crop the rest"
