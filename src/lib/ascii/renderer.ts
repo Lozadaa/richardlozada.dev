@@ -1,14 +1,25 @@
-import { faceData } from "./face-data";
-import { PushField, DEFAULT_CONFIG } from "./physics";
+import { faceData, type FaceData } from "./face-data";
+import { PushField, DEFAULT_CONFIG, type PushConfig } from "./physics";
 
 const ACCENT: [number, number, number] = [255, 122, 24];
 
+/** Mount the hero face — thin wrapper kept for the existing AsciiFace component. */
 export function mountAsciiFace(canvas: HTMLCanvasElement): void {
-  const { w, h, rows, bright } = faceData;
-  const { cellW, cellH } = DEFAULT_CONFIG;
+  mountAscii(canvas, faceData);
+}
+
+/** Mount any ASCII data (face or a project screenshot) with the push physics. */
+export function mountAscii(
+  canvas: HTMLCanvasElement,
+  data: FaceData,
+  config: Partial<PushConfig> = {},
+): void {
+  const { w, h, rows, bright } = data;
+  const cfg = { ...DEFAULT_CONFIG, ...config };
+  const { cellW, cellH } = cfg;
   canvas.width = w * cellW; canvas.height = h * cellH;
   const ctx = canvas.getContext("2d")!;
-  const field = new PushField(faceData);
+  const field = new PushField(data, cfg);
 
   function drawCell(x: number, y: number, dx: number, dy: number) {
     const ch = rows[y][x]; if (ch === " ") return;

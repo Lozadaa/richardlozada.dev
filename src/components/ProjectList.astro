@@ -1,6 +1,7 @@
 ---
 import ProjectCard from "./ProjectCard.astro";
 import projects from "../content/projects.json";
+import { slugify } from "../lib/ascii/slug.js";
 import { useT, pick, type Locale } from "../i18n/ui";
 const locale = (Astro.currentLocale ?? "en") as Locale;
 const t = useT(locale);
@@ -8,7 +9,7 @@ const featured = projects.filter((p) => p.featured);
 ---
 <section class="container proj" aria-labelledby="proj-h">
   <h2 id="proj-h">{t("proj.heading")}</h2>
-  <div class="proj__grid" data-reveal>{featured.map((p) => <ProjectCard name={p.name} description={pick(p.description, locale)} stack={p.stack} links={p.links} />)}</div>
+  <div class="proj__grid" data-reveal>{featured.map((p) => <ProjectCard name={p.name} slug={slugify(p.name)} description={pick(p.description, locale)} stack={p.stack} links={p.links} />)}</div>
 </section>
 <style>
   .proj { padding-block: var(--space-8); }
