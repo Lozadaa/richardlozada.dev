@@ -1,14 +1,19 @@
 ---
+import { faceData } from "../../lib/ascii/face-data";
 interface Props { label: string }
 const { label } = Astro.props;
+// Reserve the canvas box at the real face aspect so it doesn't resize when the
+// script sets the drawing buffer — otherwise the hero grows on load and shifts the
+// content below it (the CLS Lighthouse flagged on the About section). cellW/cellH = 5/8.
+const ratio = `${faceData.w * 5} / ${faceData.h * 8}`;
 ---
-<canvas class="ascii-face" role="img" aria-label={label}></canvas>
+<canvas class="ascii-face" style={`aspect-ratio:${ratio}`} role="img" aria-label={label}></canvas>
 <script>
   import { mountAsciiFace } from "../../lib/ascii/renderer";
   const el = document.querySelector<HTMLCanvasElement>(".ascii-face");
   if (el) mountAsciiFace(el);
 </script>
 <style>
-  .ascii-face { display: block; width: 100%; max-width: 620px; height: auto; image-rendering: pixelated; background: #000; }
+  .ascii-face { display: block; width: 100%; max-width: 620px; image-rendering: pixelated; background: #000; }
   @media (pointer: coarse) { .ascii-face { cursor: default; } }
 </style>
