@@ -1,4 +1,10 @@
 [
+  { "name": "DONTDESTROYME",
+    "description": { "en": "Retro CRT terminal game: triage incoming messages — destroy the AI, keep the humans, and learn the tells that give a machine away.", "es": "Juego de terminal CRT retro: haz triaje de los mensajes entrantes, destruye la IA y conserva a los humanos, aprendiendo las pistas que delatan a una máquina." },
+    "stack": ["Preact", "TypeScript", "Vite", "Tailwind"],
+    "links": [
+      { "label": "web →", "href": "https://im-not-ai-production.up.railway.app" }
+    ], "featured": true },
   { "name": "SkillSmith",
     "description": { "en": "Create, analyze and improve Claude Agent Skills.", "es": "Crea, analiza y mejora Claude Agent Skills." },
     "stack": ["Next.js", "TypeScript", "Tailwind"],
