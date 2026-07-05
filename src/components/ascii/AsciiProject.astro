@@ -14,8 +14,12 @@ const { slug, label } = Astro.props;
   });
 </script>
 <style>
+  /* Fixed 16:9 banner. object-fit:cover scales the canvas uniformly (never stretched)
+     and object-position:center crops overflow from the edges — "show the center,
+     crop what doesn't fit". */
   .ascii-project {
-    display: block; width: 100%; height: auto; max-height: 200px;
+    display: block; width: 100%; aspect-ratio: 16 / 9;
+    object-fit: cover; object-position: center;
     image-rendering: pixelated; background: #000; border: 1px solid var(--fg-dim);
   }
   @media (pointer: coarse) { .ascii-project { cursor: default; } }

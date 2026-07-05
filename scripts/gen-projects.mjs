@@ -17,7 +17,10 @@ import { slugify } from "../src/lib/ascii/slug.js";
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const OUT = join(ROOT, "src/lib/ascii/projects-data.json");
 const WIDTH = 100;
+const FACTOR = "0.625"; // = cellW/cellH, so the ASCII matches the source aspect (no stretch)
 const VIEWPORT = { width: 1280, height: 800 };
+// centered 16:9 band of the above-the-fold — "show the center, crop the rest"
+const CLIP = { x: 0, y: 40, width: 1280, height: 720 };
 
 const projects = JSON.parse(readFileSync(join(ROOT, "src/content/projects.json"), "utf8"));
 const webLink = (p) => (p.links || []).find((l) => /^web/i.test(l.label));
@@ -32,7 +35,7 @@ async function launch() {
 
 function pythonAscii(png, outJson) {
   for (const cmd of ["python", "py"]) {
-    const r = spawnSync(cmd, ["scripts/gen-ascii.py", png, outJson, "--width", String(WIDTH)],
+    const r = spawnSync(cmd, ["scripts/gen-ascii.py", png, outJson, "--width", String(WIDTH), "--factor", FACTOR],
       { cwd: ROOT, encoding: "utf8" });
     if (r.error && r.error.code === "ENOENT") continue; // interpreter not found, try next
     if (r.status === 0) return;
@@ -59,7 +62,7 @@ for (const p of projects.filter((x) => x.featured)) {
     const page = await context.newPage();
     await page.goto(link.href, { waitUntil: "load", timeout: 25000 });
     await page.waitForTimeout(1200); // let fonts + hero animations settle
-    await page.screenshot({ path: png }); // viewport (above the fold), not fullPage
+    await page.screenshot({ path: png, clip: CLIP }); // centered 16:9 band of the above-the-fold
     await page.close();
     pythonAscii(png, outJson);
     out[slug] = JSON.parse(readFileSync(outJson, "utf8"));
