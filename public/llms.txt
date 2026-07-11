@@ -22,7 +22,6 @@
 - Website (Spanish): https://richardlozada.dev/es/
 - GitHub: https://github.com/Lozadaa
 - LinkedIn: https://www.linkedin.com/in/richardlozada/
-- X / Twitter: https://x.com/Lozadapp
 - Email: hi@richardlozada.dev
 
 ## Projects

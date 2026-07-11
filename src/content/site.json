@@ -7,7 +7,6 @@
   "contacts": [
     { "label": "email", "href": "mailto:hi@richardlozada.dev" },
     { "label": "github", "href": "https://github.com/Lozadaa" },
-    { "label": "linkedin", "href": "https://www.linkedin.com/in/richardlozada/" },
-    { "label": "twitter", "href": "https://x.com/Lozadapp" }
+    { "label": "linkedin", "href": "https://www.linkedin.com/in/richardlozada/" }
   ]
 }
