@@ -1,4 +1,22 @@
 [
+  { "name": "Sensei Dojo",
+    "description": { "en": "A persistent tutor for Claude Code: hands-on katas, quizzes and spaced repetition, with a skill map that remembers your progress across sessions.", "es": "Tutor persistente para Claude Code: katas prácticas, cuestionarios y repetición espaciada, con un mapa de habilidades que recuerda tu progreso entre sesiones." },
+    "stack": ["Python", "HTML", "Claude Code"],
+    "links": [
+      { "label": "repo →", "href": "https://github.com/Lozadaa/sensei-dojo" }
+    ], "featured": true },
+  { "name": "Kingdom Player (Richiflix)",
+    "description": { "en": "A media player for Windows and Samsung TV: live TV, movies and series, adult and kids profiles, playback progress and remote-control navigation.", "es": "Reproductor para Windows y Samsung TV: TV en vivo, películas y series, perfiles de adultos y niños, progreso de reproducción y navegación por mando." },
+    "stack": ["Electron", "React", "JavaScript", "Tizen", "HLS"],
+    "links": [
+      { "label": "repo →", "href": "https://github.com/Lozadaa/Richiflix" }
+    ], "featured": true },
+  { "name": "claude-statusline",
+    "description": { "en": "A status line for Claude Code showing the model, Git branch, remaining context and usage quotas with reset times. Runs on Windows, macOS and Linux.", "es": "Barra de estado para Claude Code con modelo, rama Git, contexto restante y cuotas de uso con sus horarios de reinicio. Funciona en Windows, macOS y Linux." },
+    "stack": ["Python", "uv", "Claude Code"],
+    "links": [
+      { "label": "repo →", "href": "https://github.com/Lozadaa/claude-statusline" }
+    ], "featured": true },
   { "name": "SkillSmith",
     "description": { "en": "Create, analyze and improve Claude Agent Skills.", "es": "Crea, analiza y mejora Claude Agent Skills." },
     "stack": ["Next.js", "TypeScript", "Tailwind"],
