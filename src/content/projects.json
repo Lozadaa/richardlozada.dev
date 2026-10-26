@@ -5,8 +5,8 @@
     "links": [
       { "label": "repo →", "href": "https://github.com/Lozadaa/sensei-dojo" }
     ], "featured": true },
-  { "name": "Kingdom Player (Richiflix)",
-    "description": { "en": "A media player for Windows and Samsung TV: live TV, movies and series, adult and kids profiles, playback progress and remote-control navigation.", "es": "Reproductor para Windows y Samsung TV: TV en vivo, películas y series, perfiles de adultos y niños, progreso de reproducción y navegación por mando." },
+  { "name": "Kingdom Player",
+    "description": { "en": "An IPTV player for Windows and Samsung TV: live TV, movies and series, adult and kids profiles, playback progress and remote-control navigation.", "es": "Reproductor IPTV para Windows y Samsung TV: TV en vivo, películas y series, perfiles de adultos y niños, progreso de reproducción y navegación por mando." },
     "stack": ["Electron", "React", "JavaScript", "Tizen", "HLS"],
     "links": [
       { "label": "repo →", "href": "https://github.com/Lozadaa/Richiflix" }
